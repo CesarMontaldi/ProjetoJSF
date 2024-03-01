@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+  <h:head>
+    <title>Curso JSF</title>
+
+  </h:head>
+
+  <h:body>
+  
+  	<h4>Curso JSF</h4>
+  	
+  	<h:form id="formUser">
+  	
+ 		<label>Nome:</label> <br/>
+   	  	<h:inputText id="nome" value="#{pessoaBean.nome}"/><br/><br/>
+   	  	
+   	  	<label>Senha:</label> <br/>
+   	  	<h:inputSecret id="senha" value="#{pessoaBean.senha}"/><br/><br/>
+  		
+  		<h:commandButton action="#{pessoaBean.addNome}" value="Enviar"/>
+  		<h:commandButton action="primeiraPagina" value="Acessar"/>
+   	  
+  	</h:form>
+  	
+  </h:body>
+  
+</html>
