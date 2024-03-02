@@ -41,6 +41,13 @@
    	  
    	  <h:commandButton action="#{pessoaBean.delete}" value="Excluir" style="margin-left: 10px;"/>
    	  
+   	  <h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" style="margin-top: 10px;">
+   	  	<h:column><h:outputText value="#{pessoa.id}" /></h:column>
+   	  	<h:column><h:outputText value="#{pessoa.nome}" style="margin-left: 10px;"/></h:column>
+   	  	<h:column><h:outputText value="#{pessoa.sobrenome}" style="margin-left: 10px;"/></h:column>
+   	  	<h:column><h:outputText value="#{pessoa.idade}" style="margin-left: 10px;"/></h:column>
+   	  </h:dataTable>
+   	  
   	</h:form>
   	
   </h:body>

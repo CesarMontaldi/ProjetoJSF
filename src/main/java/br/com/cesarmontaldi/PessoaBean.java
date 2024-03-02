@@ -1,5 +1,9 @@
 package br.com.cesarmontaldi;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -13,6 +17,8 @@ public class PessoaBean {
 	private Pessoa pessoa = new Pessoa();
 	
 	private DaoGeneric<Pessoa> daoGeneric = new DaoGeneric<Pessoa>();
+	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
+	
 	
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -24,6 +30,7 @@ public class PessoaBean {
 	
 	public String salvar() {
 		pessoa = daoGeneric.salvarUser(pessoa);
+		CarregarPessoas();
 		return "";
 	}
 	
@@ -31,9 +38,19 @@ public class PessoaBean {
 		pessoa = new Pessoa();
 	}
 	
+	@PostConstruct
+	public void CarregarPessoas() {
+		pessoas = daoGeneric.getListEntity(Pessoa.class);
+	}
+	
 	public void delete() {
 		daoGeneric.deleteUserId(pessoa);
+		CarregarPessoas();
 		pessoa = new Pessoa();
+	}
+	
+	public List<Pessoa> getPessoas() {
+		return pessoas;
 	}
 	
 }

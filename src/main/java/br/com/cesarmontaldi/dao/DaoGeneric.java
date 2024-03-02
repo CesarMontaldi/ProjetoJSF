@@ -1,5 +1,7 @@
 package br.com.cesarmontaldi.dao;
 
+import java.util.List;
+
 import br.com.cesarmontaldi.jpautil.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -46,6 +48,21 @@ public class DaoGeneric<Entity> {
 		entityManager.close();
 
 	}
+	
+	public List<Entity> getListEntity(Class<Entity> entity) {
+		
+		EntityManager entityManager = JpaUtil.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		
+		List<Entity> users = entityManager.createQuery(" from " + entity.getName()).getResultList();
+		
+		transaction.commit();
+		entityManager.close();
+		
+		return users;
+	}
+	
 	
 	public void deleteUserId(Entity entity) {
 		
