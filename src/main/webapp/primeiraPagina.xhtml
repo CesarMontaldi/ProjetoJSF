@@ -13,30 +13,54 @@
   	<h4>Curso JSF</h4>
   	
   	<h:form id="formPessoa">
-	  	  <h:outputLabel value="Id:" /> <br/>
-	   	  <h:inputText id="id" value="#{pessoaBean.pessoa.id}" readonly="true"/><br/><br/>
+  		<h:panelGrid columns="2">
+  		
+  		  <f:facet name="header"><h:outputText value="Cadastro em JSF"/></f:facet>	
+  		
+	  	  <h:outputLabel value="Id:" />
+	   	  <h:inputText id="id" value="#{pessoaBean.pessoa.id}" readonly="true"/>
 	  		
-	  	  <h:outputLabel value="Nome:" /> <br/>
-	   	  <h:inputText id="nome" value="#{pessoaBean.pessoa.nome}"/><br/><br/>
+	  	  <h:outputLabel value="Nome:" /> 
+	   	  <h:inputText id="nome" value="#{pessoaBean.pessoa.nome}"/>
 	   	  
-	 	  <h:outputLabel value="Sobrenome:" /> <br/>
-	   	  <h:inputText id="sobrenome" value="#{pessoaBean.pessoa.sobrenome}"/><br/><br/>
+	 	  <h:outputLabel value="Sobrenome:" /> 
+	   	  <h:inputText id="sobrenome" value="#{pessoaBean.pessoa.sobrenome}"/>
 	   	  
-	   	  <h:outputLabel value="Idade:" /> <br/>
-	   	  <h:inputText id="idade" value="#{pessoaBean.pessoa.idade}"/><br/><br/>
+	   	  <h:outputLabel value="Idade:" /> 
+	   	  <h:inputText id="idade" value="#{pessoaBean.pessoa.idade}"/>
 	   	  
 	   	  <!-- <h:outputLabel value="Data de Nascimento:" /> <br/>
 	   	  <h:inputText id="dataNascimento" value="#{pessoaBean.pessoa.dataNascimento}"/><br/><br/> -->
 	   	  
-	   	  <h:commandButton action="#{pessoaBean.novo}" value="Novo" />
-	   	  <h:commandButton action="#{pessoaBean.salvar}" value="Salvar" style="margin-left: 10px;"/>
-	   	  <h:commandButton action="#{pessoaBean.delete}" value="Excluir" style="margin-left: 10px;"/>
+	   	  <h:panelGroup>
+  	  	    <h:commandButton action="#{pessoaBean.novo}" value="Novo" />
+	   	    <h:commandButton action="#{pessoaBean.salvar}" value="Salvar" style="margin-left: 10px;"/>
+	   	    <h:commandButton action="#{pessoaBean.delete}" value="Excluir" style="margin-left: 10px;"/>
+	   	  </h:panelGroup>
+	   	  
+	   	</h:panelGrid> 
+		
+	   	  <h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" style="margin-top: 10px; border: 1px solid black; padding: 5px;">
+	   	  	
+	   	  	<h:column>
+	   	  		<f:facet name="header"><h:outputText value="Id"/></f:facet>
+	   	  		<h:outputText value="#{pessoa.id}" />
+	   	  	</h:column>
 
-	   	  <h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" style="margin-top: 10px;">
-	   	  	<h:column><h:outputText value="#{pessoa.id}" /></h:column>
-	   	  	<h:column><h:outputText value="#{pessoa.nome}" style="margin-left: 10px;"/></h:column>
-	   	  	<h:column><h:outputText value="#{pessoa.sobrenome}" style="margin-left: 10px;"/></h:column>
-	   	  	<h:column><h:outputText value="#{pessoa.idade}" style="margin-left: 10px;"/></h:column>
+	   	  	<h:column>
+	   	  		<f:facet name="header"><h:outputText value="Nome"/></f:facet>
+	   	  		<h:outputText value="#{pessoa.nome}" style="margin-left: 15px;"/>
+	   	  	</h:column>
+
+	   	  	<h:column>
+	   	  		<f:facet name="header"><h:outputText value="Sobrenome" style="margin-left: 15px;"/></f:facet>
+	   	  		<h:outputText value="#{pessoa.sobrenome}" style="margin-left: 15px;"/>
+	   	  	</h:column>
+	   	  	
+	   	  	<h:column>
+	   	  		<f:facet name="header"><h:outputText value="Idade" style="margin-left: 15px;"/></f:facet>
+	   	  		<h:outputText value="#{pessoa.idade}" style="margin-left: 15px;"/>
+	   	  	</h:column>
 	   	  	
 	   	  	<h:column>
 	   	  		<h:commandButton value="Editar" style="margin-left: 10px;">
@@ -49,6 +73,7 @@
 	   	  			<f:setPropertyActionListener target="#{pessoaBean.pessoa}" value="#{pessoa}"/>
 	   	  		</h:commandButton>
 	  	  	</h:column>
+	  	  	
 	   	  </h:dataTable>
 	   	  
   	</h:form>
