@@ -26,7 +26,7 @@ public class Pessoa implements Serializable{
 	private Date dataNascimento;
 	private String sexo;
 	private String[] frameworks; 
-	
+	private Boolean ativo;
 	
 	
 	public Pessoa() {
@@ -89,6 +89,14 @@ public class Pessoa implements Serializable{
 		this.frameworks = frameworks;
 	}
 	
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

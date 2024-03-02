@@ -43,9 +43,12 @@
 	   	  	<f:selectItem itemValue="Hibernate" />
 	   	  	<f:selectItem itemValue="JSF" />
 	   	  	<f:selectItem itemValue="JPA" />
-	   	  	<f:selectItem itemValue="Spring Mvc" />
+	   	  	<f:selectItem itemValue="SpringMvc" />
 	   	  	<f:selectItem itemValue="PrimeFaces" />
 	   	  </h:selectManyMenu>
+	   	  
+	   	  <h:outputLabel value="Ativo:" />
+	   	  <h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" />
 	   	  
 	   	  <h:outputLabel/>
 	   	  
