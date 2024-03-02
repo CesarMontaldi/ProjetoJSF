@@ -37,12 +37,20 @@
 	   	  	<h:column><h:outputText value="#{pessoa.nome}" style="margin-left: 10px;"/></h:column>
 	   	  	<h:column><h:outputText value="#{pessoa.sobrenome}" style="margin-left: 10px;"/></h:column>
 	   	  	<h:column><h:outputText value="#{pessoa.idade}" style="margin-left: 10px;"/></h:column>
+	   	  	
 	   	  	<h:column>
-	   	  		<h:commandButton value="Editar" style="margin-left: 10px; text-decoration: none;">
+	   	  		<h:commandButton value="Editar" style="margin-left: 10px;">
+	   	  			<f:setPropertyActionListener target="#{pessoaBean.pessoa}" value="#{pessoa}"/>
+	   	  		</h:commandButton>
+	  	  	</h:column>
+	  	  	
+	  	  	<h:column>
+	   	  		<h:commandButton action="#{pessoaBean.delete}" value="Excluir" style="margin-left: 10px;">
 	   	  			<f:setPropertyActionListener target="#{pessoaBean.pessoa}" value="#{pessoa}"/>
 	   	  		</h:commandButton>
 	  	  	</h:column>
 	   	  </h:dataTable>
+	   	  
   	</h:form>
   	
   </h:body>
