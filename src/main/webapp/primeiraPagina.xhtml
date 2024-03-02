@@ -6,12 +6,6 @@
 
   <h:head>
     <title>Curso JSF</title>
-     <script>
-		function capturarNome() {
-			var nome = document.getElementById('name').value;
-			console.log(document.getElementById('name'));	
-		}
-    </script>
   </h:head>
 
   <h:body>
@@ -19,35 +13,36 @@
   	<h4>Curso JSF</h4>
   	
   	<h:form id="formPessoa">
-  	  
-  	  <h:outputLabel value="Id:" /> <br/>
-   	  <h:inputText id="id" value="#{pessoaBean.pessoa.id}" readonly="true"/><br/><br/>
-  		
-  	  <h:outputLabel value="Nome:" /> <br/>
-   	  <h:inputText id="nome" value="#{pessoaBean.pessoa.nome}"/><br/><br/>
-   	  
- 	  <h:outputLabel value="Sobrenome:" /> <br/>
-   	  <h:inputText id="sobrenome" value="#{pessoaBean.pessoa.sobrenome}"/><br/><br/>
-   	  
-   	  <h:outputLabel value="Idade:" /> <br/>
-   	  <h:inputText id="idade" value="#{pessoaBean.pessoa.idade}"/><br/><br/>
-   	  
-   	  <!-- <h:outputLabel value="Data de Nascimento:" /> <br/>
-   	  <h:inputText id="dataNascimento" value="#{pessoaBean.pessoa.dataNascimento}"/><br/><br/> -->
-   	  
-   	  <h:commandButton action="#{pessoaBean.novo}" value="Novo" />
-   	  
-   	  <h:commandButton action="#{pessoaBean.salvar}" value="Salvar" style="margin-left: 10px;"/>
-   	  
-   	  <h:commandButton action="#{pessoaBean.delete}" value="Excluir" style="margin-left: 10px;"/>
-   	  
-   	  <h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" style="margin-top: 10px;">
-   	  	<h:column><h:outputText value="#{pessoa.id}" /></h:column>
-   	  	<h:column><h:outputText value="#{pessoa.nome}" style="margin-left: 10px;"/></h:column>
-   	  	<h:column><h:outputText value="#{pessoa.sobrenome}" style="margin-left: 10px;"/></h:column>
-   	  	<h:column><h:outputText value="#{pessoa.idade}" style="margin-left: 10px;"/></h:column>
-   	  </h:dataTable>
-   	  
+	  	  <h:outputLabel value="Id:" /> <br/>
+	   	  <h:inputText id="id" value="#{pessoaBean.pessoa.id}" readonly="true"/><br/><br/>
+	  		
+	  	  <h:outputLabel value="Nome:" /> <br/>
+	   	  <h:inputText id="nome" value="#{pessoaBean.pessoa.nome}"/><br/><br/>
+	   	  
+	 	  <h:outputLabel value="Sobrenome:" /> <br/>
+	   	  <h:inputText id="sobrenome" value="#{pessoaBean.pessoa.sobrenome}"/><br/><br/>
+	   	  
+	   	  <h:outputLabel value="Idade:" /> <br/>
+	   	  <h:inputText id="idade" value="#{pessoaBean.pessoa.idade}"/><br/><br/>
+	   	  
+	   	  <!-- <h:outputLabel value="Data de Nascimento:" /> <br/>
+	   	  <h:inputText id="dataNascimento" value="#{pessoaBean.pessoa.dataNascimento}"/><br/><br/> -->
+	   	  
+	   	  <h:commandButton action="#{pessoaBean.novo}" value="Novo" />
+	   	  <h:commandButton action="#{pessoaBean.salvar}" value="Salvar" style="margin-left: 10px;"/>
+	   	  <h:commandButton action="#{pessoaBean.delete}" value="Excluir" style="margin-left: 10px;"/>
+
+	   	  <h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" style="margin-top: 10px;">
+	   	  	<h:column><h:outputText value="#{pessoa.id}" /></h:column>
+	   	  	<h:column><h:outputText value="#{pessoa.nome}" style="margin-left: 10px;"/></h:column>
+	   	  	<h:column><h:outputText value="#{pessoa.sobrenome}" style="margin-left: 10px;"/></h:column>
+	   	  	<h:column><h:outputText value="#{pessoa.idade}" style="margin-left: 10px;"/></h:column>
+	   	  	<h:column>
+	   	  		<h:commandButton value="Editar" style="margin-left: 10px; text-decoration: none;">
+	   	  			<f:setPropertyActionListener target="#{pessoaBean.pessoa}" value="#{pessoa}"/>
+	   	  		</h:commandButton>
+	  	  	</h:column>
+	   	  </h:dataTable>
   	</h:form>
   	
   </h:body>
