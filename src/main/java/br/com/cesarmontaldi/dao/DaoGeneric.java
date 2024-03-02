@@ -55,7 +55,7 @@ public class DaoGeneric<Entity> {
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
-		List<Entity> users = entityManager.createQuery(" from " + entity.getName()).getResultList();
+		List<Entity> users = entityManager.createQuery(" from " + entity.getName() + " order by id ASC ").getResultList();
 		
 		transaction.commit();
 		entityManager.close();

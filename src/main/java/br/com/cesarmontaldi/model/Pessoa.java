@@ -19,15 +19,15 @@ public class Pessoa implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
 	private String nome;
-	
 	private String sobrenome;
-	
 	private Integer idade;
-	
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
+	private String sexo;
+	private String[] frameworks; 
+	
+	
 	
 	public Pessoa() {
 		
@@ -73,6 +73,22 @@ public class Pessoa implements Serializable{
 		this.dataNascimento = dataNascimento;
 	}
 
+	public String getSexo() {
+		return sexo;
+	}
+	
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+	
+	public String[] getFrameworks() {
+		return frameworks;
+	}
+	
+	public void setFrameworks(String[] frameworks) {
+		this.frameworks = frameworks;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
