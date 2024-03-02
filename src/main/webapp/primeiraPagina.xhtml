@@ -9,7 +9,8 @@
   </h:head>
 
   <h:body>
-  
+  	
+  	<h:graphicImage library="images" name="jsf.png" width="100" height="100" />
   	<h4>Curso JSF</h4>
   	
   	<h:form id="formPessoa">
@@ -40,35 +41,36 @@
 	   	  
 	   	</h:panelGrid> 
 		
-	   	  <h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" style="margin-top: 10px; border: 1px solid black; padding: 5px;">
+	   	  <h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="2" cellpadding="3" style="margin-top: 10px;">
+	   	  
+	   	  	<f:facet name="header"><h:outputText value="Lista de pessoas cadastradas"/></f:facet>
 	   	  	
 	   	  	<h:column>
-	   	  		<f:facet name="header"><h:outputText value="Id"/></f:facet>
+	   	  		<f:facet name="header">ID</f:facet>
 	   	  		<h:outputText value="#{pessoa.id}" />
 	   	  	</h:column>
 
 	   	  	<h:column>
-	   	  		<f:facet name="header"><h:outputText value="Nome"/></f:facet>
+	   	  		<f:facet name="header">Nome</f:facet>
 	   	  		<h:outputText value="#{pessoa.nome}" style="margin-left: 15px;"/>
 	   	  	</h:column>
 
 	   	  	<h:column>
-	   	  		<f:facet name="header"><h:outputText value="Sobrenome" style="margin-left: 15px;"/></f:facet>
+	   	  		<f:facet name="header" style="margin-left: 15px;">Sobrenome</f:facet>
 	   	  		<h:outputText value="#{pessoa.sobrenome}" style="margin-left: 15px;"/>
 	   	  	</h:column>
 	   	  	
 	   	  	<h:column>
-	   	  		<f:facet name="header"><h:outputText value="Idade" style="margin-left: 15px;"/></f:facet>
+	   	  		<f:facet name="header" style="margin-left: 15px;">Idade</f:facet>
 	   	  		<h:outputText value="#{pessoa.idade}" style="margin-left: 15px;"/>
 	   	  	</h:column>
 	   	  	
 	   	  	<h:column>
+	   	  		<f:facet name="header">Ação</f:facet>
 	   	  		<h:commandButton value="Editar" style="margin-left: 10px;">
 	   	  			<f:setPropertyActionListener target="#{pessoaBean.pessoa}" value="#{pessoa}"/>
 	   	  		</h:commandButton>
-	  	  	</h:column>
-	  	  	
-	  	  	<h:column>
+	   	  		
 	   	  		<h:commandButton action="#{pessoaBean.delete}" value="Excluir" style="margin-left: 10px;">
 	   	  			<f:setPropertyActionListener target="#{pessoaBean.pessoa}" value="#{pessoa}"/>
 	   	  		</h:commandButton>
