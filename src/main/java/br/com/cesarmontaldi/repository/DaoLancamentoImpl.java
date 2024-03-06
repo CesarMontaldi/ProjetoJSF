@@ -18,7 +18,7 @@ public class DaoLancamentoImpl implements DaoLancamento {
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
-		lancamentos = entityManager.createQuery(" from Lancamento where usuario.id= " + idUser).getResultList();
+		lancamentos = entityManager.createQuery(" from Lancamento where usuario.id= " + idUser + " order by id ASC ").getResultList();
 		
 		transaction.commit();
 		entityManager.close();

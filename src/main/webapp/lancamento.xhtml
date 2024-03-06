@@ -27,7 +27,7 @@
    	  	 	<h:outputLabel/>
    	  	 	<h:outputLabel/>
    	  	 	<h:outputLabel value="ID:" />
-   	  	 	<h:inputText id="lancamento" value="#{lancamentoBean.lancamento.id}" readonly="true"/>
+   	  	 	<h:inputText id="id" value="#{lancamentoBean.lancamento.id}"/>
    	  	 	
    	  	 	<h:outputLabel value="Nota:" />
    	  	 	<h:inputText id="nota" value="#{lancamentoBean.lancamento.numeroNotaFiscal}"/>
@@ -73,11 +73,6 @@
 	   	  	<h:column>
 	   	  		<f:facet name="header" style="margin-left: 15px;">Destino</f:facet>
 	   	  		<h:outputText value="#{lancamento.empresaDestino}" />
-	   	  	</h:column>
-	   	  	
-	   	  	<h:column>
-	   	  		<f:facet name="header" style="margin-left: 15px;">Usuário</f:facet>
-	   	  		<h:outputText value="#{lancamento.usuario.nome}" />
 	   	  	</h:column>
 	   	  	
 	   	  	<h:column>

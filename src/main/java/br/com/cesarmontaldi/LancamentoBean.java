@@ -28,15 +28,14 @@ public class LancamentoBean {
 	}
 	
 	
-	public String salvar() {
+	public void salvar() {
 		
 		Pessoa user = pessoaBean.getUserLogado();
 		lancamento.setUsuario(user);
-		daoGeneric.salvarEntity(lancamento);
+		lancamento = daoGeneric.salvarEntity(lancamento);
 
 		carregarLancamentos();
-		
-		return "";
+
 	}
 	
 	@PostConstruct
