@@ -10,8 +10,14 @@
 
   <h:body>
 
+  	<h:form style="margin-left: 15px;">
+		<h:commandLink action="index" value="Trocar Usuário" style="text-decoration: none;"/>
+		<h:commandLink action="principal" value="Administração" style="margin-left: 15px; text-decoration: none;"/>
+		<h:commandLink action="lancamento" value="Lançamentos" style="margin-left: 15px; text-decoration: none;"/>  		
+  	</h:form>
   	
-  	<h:form id="formPessoa">
+  	
+  	<h:form id="formPessoa" style="margin-top: 10px;" rendered="#{pessoaBean.allowAccess('ADMINISTRADOR')}">
   		<h:panelGrid columns="2">
   		 
   		  <f:facet name="header"><h:outputText value="Cadastro de Usuário"/></f:facet>	

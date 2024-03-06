@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+  <h:head>
+    <title>Lançamentos</title>
+
+  </h:head>
+
+  <h:body>
+  
+  	<h:form style="margin-left: 15px;">
+		<h:commandLink action="index" value="Trocar Usuário" style="text-decoration: none;"/>
+		<h:commandLink action="principal" value="Administração" style="margin-left: 15px; text-decoration: none;"/>
+		<h:commandLink action="lancamento" value="Lançamentos" style="margin-left: 15px; text-decoration: none;"/>  		
+  	</h:form>
+  
+  	<h:form id="formLancameento" style="margin-left: 35px; margin-top:15px;"> 
+  		
+  		<h:panelGrid columns="2">
+  			
+  			<f:facet name="header" >
+   	  			<h:outputText value="Lançamentos" style="margin-left: 30px;"/>
+	  		</f:facet>
+   	  	 	<h:outputLabel/>
+   	  	 	<h:outputLabel/>
+   	  	 	<h:outputLabel value="ID:" />
+   	  	 	<h:inputText value="#{lancamentoBean.lancamento.id}" readonly="true"/>
+   	  	 	
+   	  	 	<h:outputLabel value="Nota:" />
+   	  	 	<h:inputText value="#{lancamentoBean.lancamento.numeroNotaFiscal}"/>
+   	  	 	
+   	  	 	<h:outputLabel value="Origem:" />
+   	  	 	<h:inputText value="#{lancamentoBean.lancamento.empresaOrigem}"/>
+   	  	 	
+   	  	 	<h:outputLabel value="Destino:" />
+   	  	 	<h:inputText value="#{lancamentoBean.lancamento.empresaDestino}"/>
+   	  	 	
+   	  	 	<h:outputLabel/>
+   	  	 	<h:outputLabel/>
+   	  	 	<h:outputLabel/>
+	   	  
+  	  		<h:panelGroup style="margin-left: -60px; margin-top: 20px;">
+	  	    	<h:commandButton action="#{lancamentoBean.novo}" value="Novo" />
+  	    		<h:commandButton action="#{lancamentoBean.salvar}" value="Salvar" style="margin-left: 10px;" />
+  	    		<h:commandButton action="#{lancamentoBean.delete}" value="Excluir" style="margin-left: 10px;" />
+  	    		<h:commandButton value="Limpar" type="reset" style="margin-left: 10px;" />
+  	  		</h:panelGroup>
+  	  		
+  		</h:panelGrid>
+  		
+   	  
+  	</h:form>
+  	
+  </h:body>
+  
+</html>

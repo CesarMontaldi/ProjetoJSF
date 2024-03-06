@@ -70,14 +70,14 @@ public class PessoaBean {
 			ExternalContext externalContext = context.getExternalContext();
 			externalContext.getSessionMap().put("userLogado", user);
 			
-			return "primeiraPagina.jsf";
+			return "principal.jsf";
 		}
 		
 		return "index.jsf";
 	}
 	
 	public boolean allowAccess(String acesso) {
-		
+		// retorna o usuario logado
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
 		Pessoa user = (Pessoa) externalContext.getSessionMap().get("userLogado");
