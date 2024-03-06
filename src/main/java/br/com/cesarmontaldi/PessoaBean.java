@@ -6,19 +6,25 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import br.com.cesarmontaldi.dao.DaoGeneric;
 import br.com.cesarmontaldi.model.Pessoa;
+import br.com.cesarmontaldi.repository.DaoPessoa;
+import br.com.cesarmontaldi.repository.DaoPessoaImpl;
 
 @ViewScoped
 @ManagedBean(name = "pessoaBean")
 public class PessoaBean {
 
 	private Pessoa pessoa = new Pessoa();
-	
 	private DaoGeneric<Pessoa> daoGeneric = new DaoGeneric<Pessoa>();
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 	
+	private DaoPessoa daoPessoa = new DaoPessoaImpl();
+		
+		
 	
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -51,6 +57,23 @@ public class PessoaBean {
 	
 	public List<Pessoa> getPessoas() {
 		return pessoas;
+	}
+	
+	public String login() {
+		
+		Pessoa user = daoPessoa.consultarUser(pessoa.getLogin(), pessoa.getSenha());
+		
+		if (user != null) { // Encontrou o usário com o login e senha informado
+			
+			// adicionar o usuário na sessão
+			FacesContext context = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = context.getExternalContext();
+			externalContext.getSessionMap().put("userLogado", user);
+			
+			return "primeiraPagina.jsf";
+		}
+		
+		return "index.jsf";
 	}
 	
 }

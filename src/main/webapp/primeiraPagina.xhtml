@@ -5,19 +5,16 @@
       xmlns:h="http://java.sun.com/jsf/html">
 
   <h:head>
-    <title>Curso JSF</title>
+    <title>Cadastro de Usuário</title>
   </h:head>
 
   <h:body>
-  	
-  	<!-- <h:graphicImage library="images" name="jsf.png" width="100" height="100" /> -->
-  	
-  	<h4>Curso JSF</h4>
+
   	
   	<h:form id="formPessoa">
   		<h:panelGrid columns="2">
-  		
-  		  <f:facet name="header"><h:outputText value="Cadastro em JSF"/></f:facet>	
+  		 
+  		  <f:facet name="header"><h:outputText value="Cadastro de Usuário"/></f:facet>	
   		
 	  	  <h:outputLabel value="Id:" />
 	   	  <h:inputText id="id" value="#{pessoaBean.pessoa.id}" readonly="true"/>
@@ -28,24 +25,29 @@
 	 	  <h:outputLabel value="Sobrenome:" /> 
 	   	  <h:inputText id="sobrenome" value="#{pessoaBean.pessoa.sobrenome}"/>
 	   	  
+	   	  <h:outputLabel value="Login:" /> 
+	   	  <h:inputText id="login" value="#{pessoaBean.pessoa.login}"/>
+	   	  
+	   	  <h:outputLabel value="Senha:" /> 
+	   	  <h:inputSecret id="senha" value="#{pessoaBean.pessoa.senha}"/>
+	   	  
 	   	  <h:outputLabel value="Idade:" /> 
 	   	  <h:inputText id="idade" value="#{pessoaBean.pessoa.idade}"/>
 	   	  
+	   	  <h:outputLabel value="Perfil:" />
+	   	  <h:selectOneMenu id="perfil" value="#{pessoaBean.pessoa.perfil}" required="required">
+	   	  	<f:selectItem itemLabel="[-Selecione-]" noSelectionOption="true"/>
+	   	  	<f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador"/>
+	   	  	<f:selectItem itemValue="CLIENTE" itemLabel="Cliente"/>
+	   	  	<f:selectItem itemValue="FUNCIONARIO" itemLabel="Funcionario"/>
+	   	  </h:selectOneMenu>
+	   	  
 	   	  <h:outputLabel value="Sexo:" />
-	   	  <h:selectOneMenu id="campoSexo" value="#{pessoaBean.pessoa.sexo}" required="required">
+	   	  <h:selectOneMenu id="sexo" value="#{pessoaBean.pessoa.sexo}" required="required">
 	   	  	<f:selectItem itemLabel="[-Selecione-]" noSelectionOption="true"/>
 	   	  	<f:selectItem itemValue="MASCULINO" itemLabel="Masculino"/>
 	   	  	<f:selectItem itemValue="FEMININO" itemLabel="Feminino"/>
 	   	  </h:selectOneMenu>
-	   	  
-	   	  <h:outputLabel value="Frameworks:" />
-	   	  <h:selectManyMenu id="campoFrameworks" value="#{pessoaBean.pessoa.frameworks}" style="height: 100px;">
-	   	  	<f:selectItem itemValue="Hibernate" />
-	   	  	<f:selectItem itemValue="JSF" />
-	   	  	<f:selectItem itemValue="JPA" />
-	   	  	<f:selectItem itemValue="SpringMvc" />
-	   	  	<f:selectItem itemValue="PrimeFaces" />
-	   	  </h:selectManyMenu>
 	   	  
 	   	  <h:outputLabel value="Ativo:" />
 	   	  <h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" />
@@ -54,15 +56,16 @@
 	   	  
 	   	  <h:panelGroup>
   	  	    <h:commandButton action="#{pessoaBean.novo}" value="Novo" />
-	   	    <h:commandButton action="#{pessoaBean.salvar}" value="Salvar" style="margin-left: 10px;"/>
-	   	    <h:commandButton action="#{pessoaBean.delete}" value="Excluir" style="margin-left: 10px;"/>
+	   	    <h:commandButton action="#{pessoaBean.salvar}" value="Salvar" style="margin-left: 10px;" />
+	   	    <h:commandButton action="#{pessoaBean.delete}" value="Excluir" style="margin-left: 10px;" />
+	   	    <h:commandButton value="Limpar" type="reset" style="margin-left: 10px;" />
 	   	  </h:panelGroup>
 	   	  
 	   	</h:panelGrid> 
 		
 	   	  <h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="2" cellpadding="3" style="margin-top: 10px;">
 	   	  
-	   	  	<f:facet name="header"><h:outputText value="Lista de pessoas cadastradas"/></f:facet>
+	   	  	<f:facet name="header"><h:outputText value="Lista de usuários cadastradas"/></f:facet>
 	   	  	
 	   	  	<h:column>
 	   	  		<f:facet name="header">ID</f:facet>
@@ -85,13 +88,17 @@
 	   	  	</h:column>
 	   	  	
 	   	  	<h:column>
-	   	  		<f:facet name="header">Ação</f:facet>
-	   	  		<h:commandButton value="Editar" >
+	   	  		<f:facet name="header">Editar</f:facet>
+	   	  		<h:commandLink title="Editar">
+	   	  			<h:graphicImage value="resources/images/editPencil.png" />
 	   	  			<f:setPropertyActionListener target="#{pessoaBean.pessoa}" value="#{pessoa}"/>
-	   	  		</h:commandButton>
-	   	  		
-	   	  		<h:commandButton action="#{pessoaBean.delete}" value="Excluir" style="margin-left: 10px;">
-	   	  			<f:setPropertyActionListener target="#{pessoaBean.pessoa}" value="#{pessoa}"/>
+	   	  		</h:commandLink>
+	   	  	</h:column>
+
+	   	  	<h:column>	
+	   	  		<f:facet name="header">Ecluir</f:facet>
+	   	  		<h:commandButton action="#{pessoaBean.delete}" image="resources/images/remove.png" title="Excluir">
+	   	  			<f:setPropertyActionListener target="#{pessoaBean.pessoa}" value="#{pessoa}" />
 	   	  		</h:commandButton>
 	  	  	</h:column>
 	  	  	
@@ -102,3 +109,5 @@
   </h:body>
   
 </html>
+
+		

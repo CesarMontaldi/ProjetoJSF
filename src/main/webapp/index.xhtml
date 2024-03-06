@@ -5,24 +5,25 @@
       xmlns:h="http://java.sun.com/jsf/html">
 
   <h:head>
-    <title>Curso JSF</title>
+    <title>Login</title>
 
   </h:head>
 
   <h:body>
   
-  	<h4>Curso JSF</h4>
-  	
-  	<h:form id="formUser">
-  	
- 		<label>Nome:</label> <br/>
-   	  	<h:inputText id="nome" value="#{pessoaBean.nome}"/><br/><br/>
-   	  	
-   	  	<label>Senha:</label> <br/>
-   	  	<h:inputSecret id="senha" value="#{pessoaBean.senha}"/><br/><br/>
+  	<h:form id="formLogin" style="margin-top:17%; margin-left:40%;"> 
+  		<h2 style="margin-left:50px;">Realize o login</h2>
   		
-  		<h:commandButton action="#{pessoaBean.addNome}" value="Enviar"/>
-  		<h:commandButton action="primeiraPagina" value="Acessar"/>
+  		<h:panelGrid columns="2">
+	 		<h:outputLabel value="Login"/>
+	   	  	<h:inputText id="nome" value="#{pessoaBean.pessoa.login}"/>
+	   	  	
+	   	  	<h:outputLabel value="Senha"/>
+	   	  	<h:inputSecret id="senha" value="#{pessoaBean.pessoa.senha}"/>
+  		
+  			<h:commandButton action="#{pessoaBean.login}" value="Acessar"/>
+  		</h:panelGrid>
+  		
    	  
   	</h:form>
   	
