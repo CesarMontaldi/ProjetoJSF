@@ -95,7 +95,7 @@
 	   	  		</h:commandLink>
 	   	  	</h:column>
 
-	   	  	<h:column>	
+	   	  	<h:column rendered="#{pessoaBean.allowAccess('ADMINISTRADOR')}">	
 	   	  		<f:facet name="header">Ecluir</f:facet>
 	   	  		<h:commandButton action="#{pessoaBean.delete}" image="resources/images/remove.png" title="Excluir">
 	   	  			<f:setPropertyActionListener target="#{pessoaBean.pessoa}" value="#{pessoa}" />
