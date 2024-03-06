@@ -21,22 +21,22 @@ public class DaoGeneric<Entity> {
 
 	}
 	
-	public Entity salvarUser(Entity entity) {
+	public Entity salvarEntity(Entity entity) {
 		
 		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
-		Entity user = entityManager.merge(entity);
+		Entity newEntity = entityManager.merge(entity);
 		
 		transaction.commit();
 		entityManager.close();
 		
-		return user;
+		return newEntity;
 
 	}
 	
-	public void deleteUser(Entity entity) {
+	public void delete(Entity entity) {
 		
 		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
@@ -55,16 +55,16 @@ public class DaoGeneric<Entity> {
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
-		List<Entity> users = entityManager.createQuery(" from " + entity.getName() + " order by id ASC ").getResultList();
+		List<Entity> entityList = entityManager.createQuery(" from " + entity.getName() + " order by id ASC ").getResultList();
 		
 		transaction.commit();
 		entityManager.close();
 		
-		return users;
+		return entityList;
 	}
 	
 	
-	public void deleteUserId(Entity entity) {
+	public void deletePorId(Entity entity) {
 		
 		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();

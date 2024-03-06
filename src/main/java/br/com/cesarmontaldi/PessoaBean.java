@@ -35,7 +35,7 @@ public class PessoaBean {
 	}
 	
 	public String salvar() {
-		pessoa = daoGeneric.salvarUser(pessoa);
+		pessoa = daoGeneric.salvarEntity(pessoa);
 		CarregarPessoas();
 		return "";
 	}
@@ -50,7 +50,7 @@ public class PessoaBean {
 	}
 	
 	public void delete() {
-		daoGeneric.deleteUserId(pessoa);
+		daoGeneric.deletePorId(pessoa);
 		CarregarPessoas();
 		pessoa = new Pessoa();
 	}
@@ -76,13 +76,20 @@ public class PessoaBean {
 		return "index.jsf";
 	}
 	
-	public boolean allowAccess(String acesso) {
+	
+	public Pessoa getUserLogado() {
 		// retorna o usuario logado
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
 		Pessoa user = (Pessoa) externalContext.getSessionMap().get("userLogado");
-		 
-		return user.getPerfil().equals(acesso);
+		
+		return user;
+	}
+	
+
+	public boolean allowAccess(String acesso) {
+		
+		return getUserLogado().getPerfil().equals(acesso);
 	}
 	
 }
