@@ -30,8 +30,8 @@
 	   	  <h:inputText id="sobrenome" value="#{pessoaBean.pessoa.sobrenome}"/>
 	   	  
 	   	  <h:outputLabel value="Data Nascimento:" /> 
-	   	  <h:inputText id="dataNascimento" value="#{pessoaBean.pessoa.dataNascimento}">
-	   	  	<f:convertDateTime pattern="dd/MM/yyyy"/>
+	   	  <h:inputText id="dataNascimento" value="#{pessoaBean.pessoa.dataNascimento}" converterMessage="Data inválida!">
+	   	  	<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-03:00"/>
 	   	  </h:inputText>
 	   	  
 	   	  <h:outputLabel value="Login:" /> 
