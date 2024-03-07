@@ -25,7 +25,7 @@
 	  		
 	  	  <h:outputLabel value="Nome:" /> 
 	   	  <h:inputText id="nome" value="#{pessoaBean.pessoa.nome}" required="true" requiredMessage="Informe o nome do usário!" 
-	   	  validatorMessage="Nome do Usuário deve ter no minimo 3 caracteres!">
+	   	  validatorMessage="Nome do Usuário deve ter no minimo 3 caracteres!" >
 	   	  	<f:validateLength minimum="3" maximum="50" />
 	   	  </h:inputText>
 	   	  
@@ -41,7 +41,7 @@
 	   	  <h:inputText id="login" value="#{pessoaBean.pessoa.login}"/>
 	   	  
 	   	  <h:outputLabel value="Senha:" /> 
-	   	  <h:inputSecret id="senha" value="#{pessoaBean.pessoa.senha}"/>
+	   	  <h:inputSecret id="senha" value="#{pessoaBean.pessoa.senha}" redisplay="true"/>
 	   	  
 	   	  <h:outputLabel value="Idade:" /> 
 	   	  <h:inputText id="idade" value="#{pessoaBean.pessoa.idade}"/>
@@ -61,18 +61,27 @@
 	   	  </h:selectOneRadio>
 	   	  
 	   	  <h:outputLabel value="Ativo:" />
-	   	  <h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" />
+	   	  <h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" style="margin-left: -2px;"/>
+	   	  
+	   	  <h:outputLabel value="CEP:" />
+	   	  <h:inputText id="cep" value="#{enderecoBean.endereco.cep}" > 
+	   	  	<f:ajax event="blur" execute="@this" listener="#{enderecoBean.pesquisaCep}" />
+	   	  </h:inputText>
 	   	  
 	   	  <h:outputLabel/>
 	   	  
-	   	  <h:panelGroup>
+	   	  <h:panelGroup style="margin-left: -1px;">
   	  	    <h:commandButton action="#{pessoaBean.novo}" value="Novo" />
 	   	    <h:commandButton action="#{pessoaBean.salvar}" value="Salvar" style="margin-left: 10px;" />
 	   	    <h:commandButton action="#{pessoaBean.delete}" value="Excluir" style="margin-left: 10px;" />
-	   	    <h:commandButton value="Limpar" type="reset" style="margin-left: 10px;" />
+	   	    <h:commandButton type="reset" value="Limpar" style="margin-left: 10px;" />
 	   	  </h:panelGroup>
 	   	  
 	   	</h:panelGrid> 
+		
+	</h:form>
+	
+	<h:form id="formTableUsers" style="margin-left: 35px; margin-top:15px;" rendered="#{pessoaBean.allowAccess('ADMINISTRADOR')}">	
 		
 	   	  <h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="2" cellpadding="3" style="margin-top: 10px;">
 	   	  

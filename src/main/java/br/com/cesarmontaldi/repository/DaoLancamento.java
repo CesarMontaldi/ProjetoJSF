@@ -7,5 +7,5 @@ import br.com.cesarmontaldi.model.Lancamento;
 public interface DaoLancamento {
 	
 	List<Lancamento> consultar(Long idUser);
-
+	
 }

@@ -2,12 +2,15 @@ package br.com.cesarmontaldi.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -31,6 +34,8 @@ public class Pessoa implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 	
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+	private List<Endereco> enderecos;
 	
 	public Pessoa() {
 		
@@ -115,6 +120,16 @@ public class Pessoa implements Serializable{
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}
+	
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+	
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+	
+	
 
 	@Override
 	public int hashCode() {

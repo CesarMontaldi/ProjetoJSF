@@ -44,6 +44,7 @@ public class PessoaBean {
 	
 	public void novo() {
 		pessoa = new Pessoa();
+		getMsg("");
 	}
 	
 	@PostConstruct

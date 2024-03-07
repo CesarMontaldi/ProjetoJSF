@@ -64,18 +64,23 @@ public class LancamentoBean {
 	public Lancamento getLancamento() {
 		return lancamento;
 	}
+	
 	public void setLancamento(Lancamento lancamento) {
 		this.lancamento = lancamento;
 	}
+	
 	public DaoGeneric<Lancamento> getDaoGeneric() {
 		return daoGeneric;
 	}
+	
 	public void setDaoGeneric(DaoGeneric<Lancamento> daoGeneric) {
 		this.daoGeneric = daoGeneric;
 	}
+	
 	public List<Lancamento> getLancamentos() {
 		return lancamentos;
 	}
+	
 	public void setLancamentos(List<Lancamento> lancamentos) {
 		this.lancamentos = lancamentos;
 	}
