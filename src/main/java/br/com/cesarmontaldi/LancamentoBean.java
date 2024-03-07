@@ -23,6 +23,7 @@ public class LancamentoBean {
 	private DaoLancamento daoLancamento = new DaoLancamentoImpl(); 
 	private PessoaBean pessoaBean = new PessoaBean();
 	
+	
 	public void novo() {
 		lancamento = new Lancamento();
 	}
@@ -35,14 +36,20 @@ public class LancamentoBean {
 		lancamento = daoGeneric.salvarEntity(lancamento);
 
 		carregarLancamentos();
-
 	}
+	
 	
 	@PostConstruct
 	private void carregarLancamentos() {
 		
 		Pessoa user = pessoaBean.getUserLogado();
-		lancamentos = daoLancamento.consultar(user.getId());
+		
+		if (user.getPerfil().equalsIgnoreCase("ADMINISTRADOR")) {
+			lancamentos = daoGeneric.getListEntity(Lancamento.class);
+		} 
+		else {
+			lancamentos = daoLancamento.consultar(user.getId());
+		}
 	}
 	
 	public String delete() {
@@ -52,9 +59,8 @@ public class LancamentoBean {
 		
 		return "";
 	}
-	
-	
 
+	
 	public Lancamento getLancamento() {
 		return lancamento;
 	}

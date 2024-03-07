@@ -11,13 +11,16 @@
   <h:body>
 
   	<h:form style="margin-left: 35px;">
-		<h:commandLink action="index" value="Trocar Usuário" style="text-decoration: none;"/>
-		<h:commandLink action="principal" value="Administração" style="margin-left: 15px; text-decoration: none;"/>
-		<h:commandLink action="lancamento" value="Lançamentos" style="margin-left: 15px; text-decoration: none;"/>  		
+		<h:commandLink action="principal" value="Administração" style="text-decoration: none;" rendered="#{pessoaBean.allowAccess('ADMINISTRADOR')}"/>
+		<h:commandLink action="lancamento" value="Lançamentos" style="margin-left: 15px; text-decoration: none;"/>
+		<h:commandLink action="index" value="Trocar Usuário" style="text-decoration: none; margin-left: 15px; "/>  		
   	</h:form>
   	
   	
   	<h:form id="formPessoa" style="margin-left: 35px; margin-top:15px;" rendered="#{pessoaBean.allowAccess('ADMINISTRADOR')}">
+  		
+  		<h:messages infoStyle="list-style:none;color:green;font-size:20px;"/>
+  		
   		<h:panelGrid columns="2">
   		 
   		  <f:facet name="header"><h:outputText value="Cadastro de Usuário"/></f:facet>	
@@ -42,18 +45,17 @@
 	   	  
 	   	  <h:outputLabel value="Perfil:" />
 	   	  <h:selectOneMenu id="perfil" value="#{pessoaBean.pessoa.perfil}" required="required">
-	   	  	<f:selectItem itemLabel="[-Selecione-]" noSelectionOption="true"/>
+	   	  	<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
 	   	  	<f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador"/>
 	   	  	<f:selectItem itemValue="CLIENTE" itemLabel="Cliente"/>
 	   	  	<f:selectItem itemValue="FUNCIONARIO" itemLabel="Funcionario"/>
 	   	  </h:selectOneMenu>
 	   	  
 	   	  <h:outputLabel value="Sexo:" />
-	   	  <h:selectOneMenu id="sexo" value="#{pessoaBean.pessoa.sexo}" required="required">
-	   	  	<f:selectItem itemLabel="[-Selecione-]" noSelectionOption="true"/>
+	   	  <h:selectOneRadio id="sexo" value="#{pessoaBean.pessoa.sexo}" style="margin-left: -10px;" required="required" layout="lineDirection">
 	   	  	<f:selectItem itemValue="MASCULINO" itemLabel="Masculino"/>
 	   	  	<f:selectItem itemValue="FEMININO" itemLabel="Feminino"/>
-	   	  </h:selectOneMenu>
+	   	  </h:selectOneRadio>
 	   	  
 	   	  <h:outputLabel value="Ativo:" />
 	   	  <h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" />

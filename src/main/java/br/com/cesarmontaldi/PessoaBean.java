@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
@@ -36,7 +37,8 @@ public class PessoaBean {
 	
 	public String salvar() {
 		pessoa = daoGeneric.salvarEntity(pessoa);
-		CarregarPessoas();
+		carregarPessoas();
+		msg("Cadastrado com sucesso!");
 		return "";
 	}
 	
@@ -45,14 +47,15 @@ public class PessoaBean {
 	}
 	
 	@PostConstruct
-	public void CarregarPessoas() {
+	public void carregarPessoas() {
 		pessoas = daoGeneric.getListEntity(Pessoa.class);
 	}
 	
 	public void delete() {
 		daoGeneric.deletePorId(pessoa);
-		CarregarPessoas();
 		pessoa = new Pessoa();
+		carregarPessoas();
+		msg("Removido com sucesso!");
 	}
 	
 	public List<Pessoa> getPessoas() {
@@ -90,6 +93,12 @@ public class PessoaBean {
 	public boolean allowAccess(String acesso) {
 		
 		return getUserLogado().getPerfil().equals(acesso);
+	}
+	
+	public void msg(String msg) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		FacesMessage message = new FacesMessage(msg);
+		context.addMessage(null, message);
 	}
 	
 }
