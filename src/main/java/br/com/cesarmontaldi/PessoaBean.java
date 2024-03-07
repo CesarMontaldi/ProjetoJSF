@@ -38,7 +38,7 @@ public class PessoaBean {
 	public String salvar() {
 		pessoa = daoGeneric.salvarEntity(pessoa);
 		carregarPessoas();
-		msg("Cadastrado com sucesso!");
+		getMsg("Cadastrado com sucesso!");
 		return "";
 	}
 	
@@ -55,7 +55,7 @@ public class PessoaBean {
 		daoGeneric.deletePorId(pessoa);
 		pessoa = new Pessoa();
 		carregarPessoas();
-		msg("Removido com sucesso!");
+		getMsg("Removido com sucesso!");
 	}
 	
 	public List<Pessoa> getPessoas() {
@@ -95,7 +95,7 @@ public class PessoaBean {
 		return getUserLogado().getPerfil().equals(acesso);
 	}
 	
-	public void msg(String msg) {
+	public void getMsg(String msg) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		FacesMessage message = new FacesMessage(msg);
 		context.addMessage(null, message);

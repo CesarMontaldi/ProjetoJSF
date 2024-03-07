@@ -10,12 +10,7 @@
 
   <h:body>
 
-  	<h:form style="margin-left: 35px;">
-		<h:commandLink action="principal" value="Administração" style="text-decoration: none;" rendered="#{pessoaBean.allowAccess('ADMINISTRADOR')}"/>
-		<h:commandLink action="lancamento" value="Lançamentos" style="margin-left: 15px; text-decoration: none;"/>
-		<h:commandLink action="index" value="Trocar Usuário" style="text-decoration: none; margin-left: 15px; "/>  		
-  	</h:form>
-  	
+  	<ui:include src="menu.xhtml" />
   	
   	<h:form id="formPessoa" style="margin-left: 35px; margin-top:15px;" rendered="#{pessoaBean.allowAccess('ADMINISTRADOR')}">
   		
@@ -33,6 +28,11 @@
 	   	  
 	 	  <h:outputLabel value="Sobrenome:" /> 
 	   	  <h:inputText id="sobrenome" value="#{pessoaBean.pessoa.sobrenome}"/>
+	   	  
+	   	  <h:outputLabel value="Data Nascimento:" /> 
+	   	  <h:inputText id="dataNascimento" value="#{pessoaBean.pessoa.dataNascimento}">
+	   	  	<f:convertDateTime pattern="dd/MM/yyyy"/>
+	   	  </h:inputText>
 	   	  
 	   	  <h:outputLabel value="Login:" /> 
 	   	  <h:inputText id="login" value="#{pessoaBean.pessoa.login}"/>

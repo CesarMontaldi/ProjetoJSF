@@ -6,16 +6,11 @@
 
   <h:head>
     <title>Lançamentos</title>
-
   </h:head>
 
   <h:body>
   
-  	<h:form style="margin-left: 35px;">
-		<h:commandLink action="principal" value="Administração" style="text-decoration: none;" rendered="#{pessoaBean.allowAccess('ADMINISTRADOR')}"/>
-		<h:commandLink action="lancamento" value="Lançamentos" style="margin-left: 15px; text-decoration: none;"/>
-		<h:commandLink action="index" value="Trocar Usuário" style="text-decoration: none; margin-left: 15px; "/> 		
-  	</h:form>
+  	<ui:include src="menu.xhtml" />
   
   	<h:form id="formLancameento" style="margin-left: 35px; margin-top:15px;"> 
   		
@@ -91,7 +86,6 @@
 	  	  	</h:column>
 	  	  	
 	   	  </h:dataTable>
-  		
    	  
   	</h:form>
   	
