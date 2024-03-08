@@ -21,7 +21,7 @@ public class Endereco implements Serializable{
 	private String cep;
 	private String logradouro;
 	private String bairro;
-	private String cidade;
+	private String localidade;
 	private String uf;
 	private String numero;
 	
@@ -61,12 +61,12 @@ public class Endereco implements Serializable{
 		this.bairro = bairro;
 	}
 
-	public String getCidade() {
-		return cidade;
+	public String getLocalidade() {
+		return localidade;
 	}
 
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
 	}
 
 	public String getUf() {

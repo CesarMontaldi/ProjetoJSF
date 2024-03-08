@@ -16,6 +16,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import com.google.gson.Gson;
+
 import br.com.cesarmontaldi.dao.DaoGeneric;
 import br.com.cesarmontaldi.model.Endereco;
 import br.com.cesarmontaldi.model.Pessoa;
@@ -109,7 +111,13 @@ public class EnderecoBean {
 				jsonCep.append(cep);
 			}
 			
-			System.out.println(jsonCep);
+			Endereco gson = new Gson().fromJson(jsonCep.toString(), Endereco.class);
+			
+			endereco.setCep(gson.getCep());
+			endereco.setLogradouro(gson.getLogradouro());
+			endereco.setBairro(gson.getBairro());
+			endereco.setLocalidade(gson.getLocalidade());
+			endereco.setUf(gson.getUf());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
