@@ -21,7 +21,7 @@ public class LancamentoBean {
 	private DaoGeneric<Lancamento> daoGeneric = new DaoGeneric<Lancamento>();
 	private List<Lancamento> lancamentos = new ArrayList<Lancamento>();
 	private DaoLancamento daoLancamento = new DaoLancamentoImpl(); 
-	private PessoaBean pessoaBean = new PessoaBean();
+	private Pessoa pessoa = new Pessoa();
 	
 	
 	public void novo() {
@@ -31,7 +31,7 @@ public class LancamentoBean {
 	
 	public void salvar() {
 		
-		Pessoa user = pessoaBean.getUserLogado();
+		Pessoa user = pessoa.getUserLogado();
 		lancamento.setUsuario(user);
 		lancamento = daoGeneric.salvarEntity(lancamento);
 
@@ -42,7 +42,7 @@ public class LancamentoBean {
 	@PostConstruct
 	private void carregarLancamentos() {
 		
-		Pessoa user = pessoaBean.getUserLogado();
+		Pessoa user = pessoa.getUserLogado();
 		
 		if (user.getPerfil().equalsIgnoreCase("ADMINISTRADOR")) {
 			lancamentos = daoGeneric.getListEntity(Lancamento.class);
@@ -84,5 +84,26 @@ public class LancamentoBean {
 	public void setLancamentos(List<Lancamento> lancamentos) {
 		this.lancamentos = lancamentos;
 	}
+
+
+	public DaoLancamento getDaoLancamento() {
+		return daoLancamento;
+	}
+
+
+	public void setDaoLancamento(DaoLancamento daoLancamento) {
+		this.daoLancamento = daoLancamento;
+	}
+
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+	
 	
 }

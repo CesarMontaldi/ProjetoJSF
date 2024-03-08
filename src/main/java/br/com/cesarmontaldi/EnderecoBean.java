@@ -1,10 +1,19 @@
 package br.com.cesarmontaldi;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import br.com.cesarmontaldi.dao.DaoGeneric;
@@ -19,10 +28,11 @@ import br.com.cesarmontaldi.repository.DaoEnderecoImpl;
 public class EnderecoBean {
 	
 	private Endereco endereco = new Endereco();
+	private Pessoa pessoa = new Pessoa();
 	private DaoGeneric<Endereco> daoGeneric = new DaoGeneric<Endereco>();
 	private List<Endereco> enderecos = new ArrayList<Endereco>();
 	private DaoEndereco daoEndereco = new DaoEnderecoImpl();
-	private PessoaBean pessoaBean = new PessoaBean();
+
 	
 	
 	public Endereco getEndereco() {
@@ -56,33 +66,61 @@ public class EnderecoBean {
 		this.daoEndereco = daoEndereco;
 	}
 	
-	public PessoaBean getPessoaBean() {
-		return pessoaBean;
+	
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
-	
-	public void setPessoaBean(PessoaBean pessoaBean) {
-		this.pessoaBean = pessoaBean;
-	}
-	
-	
-	private void carregarEnderecos() {
-		
-		Pessoa user = pessoaBean.getUserLogado();
 
-		enderecos = daoEndereco.consultarEndereco(user.getId());
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 	
-	public void salvar() {
+	
+
+	public void carregarEnderecos() {
 		
-		Pessoa user = pessoaBean.getUserLogado();
+		Pessoa user = pessoa.getUserLogado();
+		enderecos = daoEndereco.consultarEndereco(user.getId());
+
+	}
+	
+	public void salvarEndereco() {
+		
+		Pessoa user = pessoa.getUserLogado();
 		endereco.setUsuario(user);
 		endereco = daoGeneric.salvarEntity(endereco);
-
 		carregarEnderecos();
-	}
+	} 
 	
 	public void pesquisaCep(AjaxBehaviorEvent event) {
-		System.out.println("Metodo pesquisa cep chamado CEP: " + endereco.getCep());
+		
+		try {
+			
+			URL url = new URL("https://viacep.com.br/ws/"+ endereco.getCep() +"/json/");
+			URLConnection connection = url.openConnection();
+			
+			InputStream inputStream = connection.getInputStream();
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+			
+			String cep = "";
+			StringBuilder jsonCep = new StringBuilder();
+			
+			while ((cep = bufferedReader.readLine()) != null) {
+				jsonCep.append(cep);
+			}
+			
+			System.out.println(jsonCep);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			getMsg("Erro ao consultar o cep!");
+		}
+	}
+	
+	public void getMsg(String msg) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		FacesMessage message = new FacesMessage(msg);
+		context.addMessage(null, message);
 	}
 	
 }

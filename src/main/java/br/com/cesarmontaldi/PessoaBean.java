@@ -1,5 +1,6 @@
 package br.com.cesarmontaldi;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +10,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import br.com.cesarmontaldi.dao.DaoGeneric;
+import br.com.cesarmontaldi.model.Endereco;
 import br.com.cesarmontaldi.model.Pessoa;
+import br.com.cesarmontaldi.repository.DaoEndereco;
 import br.com.cesarmontaldi.repository.DaoPessoa;
 import br.com.cesarmontaldi.repository.DaoPessoaImpl;
 
@@ -22,10 +26,9 @@ public class PessoaBean {
 	private Pessoa pessoa = new Pessoa();
 	private DaoGeneric<Pessoa> daoGeneric = new DaoGeneric<Pessoa>();
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
-	
 	private DaoPessoa daoPessoa = new DaoPessoaImpl();
-		
-		
+	private List<Endereco> enderecos = new ArrayList<Endereco>();
+	private EnderecoBean enderecoBean = new EnderecoBean();
 	
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -51,6 +54,12 @@ public class PessoaBean {
 	public void carregarPessoas() {
 		pessoas = daoGeneric.getListEntity(Pessoa.class);
 	}
+
+	public Pessoa editar() {
+		Pessoa user = daoGeneric.buscar(pessoa);
+		
+		return user;
+	}
 	
 	public void delete() {
 		daoGeneric.deletePorId(pessoa);
@@ -58,6 +67,7 @@ public class PessoaBean {
 		carregarPessoas();
 		getMsg("Removido com sucesso!");
 	}
+	
 	
 	public List<Pessoa> getPessoas() {
 		return pessoas;
@@ -80,20 +90,9 @@ public class PessoaBean {
 		return "index.jsf";
 	}
 	
-	
-	public Pessoa getUserLogado() {
-		// retorna o usuario logado
-		FacesContext context = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = context.getExternalContext();
-		Pessoa user = (Pessoa) externalContext.getSessionMap().get("userLogado");
-		
-		return user;
-	}
-	
-
 	public boolean allowAccess(String acesso) {
-		
-		return getUserLogado().getPerfil().equals(acesso);
+		Pessoa user = pessoa.getUserLogado();
+		return user.getPerfil().equals(acesso);
 	}
 	
 	public void getMsg(String msg) {
@@ -101,5 +100,6 @@ public class PessoaBean {
 		FacesMessage message = new FacesMessage(msg);
 		context.addMessage(null, message);
 	}
+	
 	
 }

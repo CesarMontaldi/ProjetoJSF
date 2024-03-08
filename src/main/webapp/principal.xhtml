@@ -65,7 +65,7 @@
 	   	  
 	   	  <h:outputLabel value="CEP:" />
 	   	  <h:inputText id="cep" value="#{enderecoBean.endereco.cep}" > 
-	   	  	<f:ajax event="blur" execute="@this" listener="#{enderecoBean.pesquisaCep}" />
+	   	  	<f:ajax event="blur" execute="@this" listener="#{enderecoBean.pesquisaCep}"/>
 	   	  </h:inputText>
 	   	  
 	   	  <h:outputLabel/>
@@ -83,7 +83,7 @@
 	
 	<h:form id="formTableUsers" style="margin-left: 35px; margin-top:15px;" rendered="#{pessoaBean.allowAccess('ADMINISTRADOR')}">	
 		
-	   	  <h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="2" cellpadding="3" style="margin-top: 10px;">
+	   	  <h:dataTable  value="#{pessoaBean.pessoas}"  var="pessoa" border="2" cellpadding="3" style="margin-top: 10px;">
 	   	  
 	   	  	<f:facet name="header"><h:outputText value="Lista de usuários cadastradas"/></f:facet>
 	   	  	
@@ -109,9 +109,9 @@
 	   	  	
 	   	  	<h:column>
 	   	  		<f:facet name="header">Editar</f:facet>
-	   	  		<h:commandLink title="Editar">
+	   	  		<h:commandLink title="Editar" action="#{pessoaBean.editar}" >
 	   	  			<h:graphicImage value="resources/images/editPencil.png" />
-	   	  			<f:setPropertyActionListener target="#{pessoaBean.pessoa}" value="#{pessoa}"/>
+	   	  			<f:setPropertyActionListener target="#{pessoaBean.pessoa}" value="#{pessoa}" />
 	   	  		</h:commandLink>
 	   	  	</h:column>
 
@@ -124,6 +124,7 @@
 	  	  	
 	   	  </h:dataTable>
 	   	  
+
   	</h:form>
   	
   </h:body>

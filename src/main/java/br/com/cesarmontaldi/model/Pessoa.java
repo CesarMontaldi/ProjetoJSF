@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -129,7 +132,14 @@ public class Pessoa implements Serializable{
 		this.enderecos = enderecos;
 	}
 	
-	
+	public Pessoa getUserLogado() {
+		// retorna o usuario logado
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = context.getExternalContext();
+		Pessoa user = (Pessoa) externalContext.getSessionMap().get("userLogado");
+		
+		return user;
+	}
 
 	@Override
 	public int hashCode() {

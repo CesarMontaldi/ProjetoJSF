@@ -36,18 +36,6 @@ public class DaoGeneric<Entity> {
 
 	}
 	
-	public void delete(Entity entity) {
-		
-		EntityManager entityManager = JpaUtil.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
-		
-		entityManager.remove(entity);
-		
-		transaction.commit();
-		entityManager.close();
-
-	}
 	
 	public List<Entity> getListEntity(Class<Entity> entity) {
 		
@@ -63,6 +51,35 @@ public class DaoGeneric<Entity> {
 		return entityList;
 	}
 	
+	public Entity buscar(Entity entity) {
+		
+		EntityManager entityManager = JpaUtil.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		
+		Object id = JpaUtil.getPrimaryKey(entity);
+		
+		Entity findEntity = (Entity) entityManager.find(entity.getClass(), id);
+		
+		transaction.commit();
+		entityManager.close();
+		
+		return findEntity;
+
+	}
+	
+	public void delete(Entity entity) {
+		
+		EntityManager entityManager = JpaUtil.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		
+		entityManager.remove(entity);
+		
+		transaction.commit();
+		entityManager.close();
+
+	}
 	
 	public void deletePorId(Entity entity) {
 		

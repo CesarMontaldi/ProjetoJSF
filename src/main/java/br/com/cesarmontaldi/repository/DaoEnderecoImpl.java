@@ -18,7 +18,7 @@ public class DaoEnderecoImpl implements DaoEndereco {
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
-		enderecos = entityManager.createQuery(" from Endereco where usuario.id= " + idUser + " order by id ASC ").getResultList();
+		enderecos = entityManager.createQuery(" select cep from Endereco where usuario.id= " + idUser).getResultList();
 		
 		transaction.commit();
 		entityManager.close();
