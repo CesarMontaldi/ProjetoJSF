@@ -20,6 +20,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 
 import com.google.gson.Gson;
@@ -40,7 +41,7 @@ public class PessoaBean {
 	private DaoPessoa daoPessoa = new DaoPessoaImpl();
 	private Endereco endereco = new Endereco();
 	private EnderecoBean enderecoBean = new EnderecoBean();
-
+	private List<SelectItem> estados;
 	
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -72,6 +73,11 @@ public class PessoaBean {
 
 	public void setEnderecoBean(EnderecoBean enderecoBean) {
 		this.enderecoBean = enderecoBean;
+	}
+	
+	public List<SelectItem> getEstados() {
+		estados = daoPessoa.listaEstados();
+		return estados;
 	}
 
 	public String salvar() {

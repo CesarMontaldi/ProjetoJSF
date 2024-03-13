@@ -18,6 +18,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 
 @Entity 
 public class Pessoa implements Serializable{
@@ -40,6 +41,9 @@ public class Pessoa implements Serializable{
 	private Date dataNascimento;
 	
 	private Endereco endereco;
+	
+	@Transient /* Não fica perssistente / não grava no banco */
+	private Estados estados;
 	
 	public Pessoa() {
 		
@@ -131,6 +135,10 @@ public class Pessoa implements Serializable{
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+	
+	public Estados getEstados() {
+		return estados;
 	}
 
 	public Pessoa getUserLogado() {

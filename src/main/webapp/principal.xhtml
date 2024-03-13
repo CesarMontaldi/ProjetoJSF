@@ -87,6 +87,11 @@
 	   	  <h:outputLabel value="Número:" /> 
 	   	  <h:inputText id="numero" value="#{pessoaBean.endereco.numero}"/>
 	   	  
+	   	  <h:outputLabel value="Estados" />
+	   	  <h:selectOneMenu value="#{pessoaBean.pessoa.estados}">
+	   	  	<f:selectItems value="#{pessoaBean.estados}"/>
+	   	  </h:selectOneMenu>
+	   	  
 	   	  <h:outputLabel/>
 	   	  
 	   	  <h:panelGroup style="margin-left: -1px;">
