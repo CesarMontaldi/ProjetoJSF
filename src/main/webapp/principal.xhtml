@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"> 
 
   <h:head>
     <title>Cadastro de Usuário</title>
@@ -25,27 +26,28 @@
 	  		
 	  	  <h:outputLabel value="Nome:" /> 
 	   	  <h:inputText id="nome" value="#{pessoaBean.pessoa.nome}" required="true" requiredMessage="Informe o nome do usário!" 
-	   	  validatorMessage="Nome do Usuário deve ter no minimo 3 caracteres!" >
+	   	  validatorMessage="Nome do Usuário deve ter no minimo 3 caracteres!" pt:placeholder="Informe seu nome.">
 	   	  	<f:validateLength minimum="3" maximum="50" />
 	   	  </h:inputText>
 	   	  
 	 	  <h:outputLabel value="Sobrenome:" /> 
-	   	  <h:inputText id="sobrenome" value="#{pessoaBean.pessoa.sobrenome}"/>
+	   	  <h:inputText id="sobrenome" value="#{pessoaBean.pessoa.sobrenome}" pt:placeholder="Informe seu sobrenome."/>
 	   	  
 	   	  <h:outputLabel value="Data Nascimento:" /> 
-	   	  <h:inputText id="dataNascimento" value="#{pessoaBean.pessoa.dataNascimento}" converterMessage="Data inválida!">
+	   	  <h:inputText id="dataNascimento" value="#{pessoaBean.pessoa.dataNascimento}" converterMessage="Data inválida!" pt:placeholder="Informe sua data de nascimento.">
 	   	  	<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-03:00"/>
 	   	  	<f:ajax event="blur" execute="@this" listener="#{pessoaBean.getIdade}" render="idade"/>
 	   	  </h:inputText>
 	   	  
+	   	  <h:outputLabel value="Idade:" /> 
+	   	  <h:inputText id="idade" value="#{pessoaBean.pessoa.idade}" />
+	   	  
 	   	  <h:outputLabel value="Login:" /> 
-	   	  <h:inputText id="login" value="#{pessoaBean.pessoa.login}"/>
+	   	  <h:inputText id="login" value="#{pessoaBean.pessoa.login}" />
 	   	  
 	   	  <h:outputLabel value="Senha:" /> 
-	   	  <h:inputSecret id="senha" value="#{pessoaBean.pessoa.senha}" redisplay="true"/>
+	   	  <h:inputSecret id="senha" value="#{pessoaBean.pessoa.senha}" redisplay="true" />
 	   	  
-	   	  <h:outputLabel value="Idade:" /> 
-	   	  <h:inputText id="idade" value="#{pessoaBean.pessoa.idade}"/>
 	   	  
 	   	  <h:outputLabel value="Perfil:" />
 	   	  <h:selectOneMenu id="perfil" value="#{pessoaBean.pessoa.perfil}" required="required">
@@ -66,7 +68,7 @@
 	   	  
 	   	  
 	   	  <h:outputLabel value="CEP:" />
-	   	  	<h:inputText id="cep" value="#{pessoaBean.endereco.cep}" >
+	   	  	<h:inputText id="cep" value="#{pessoaBean.endereco.cep}" pt:placeholder="Informe um CEP válido!">
 	   	  		<f:ajax event="blur" execute="@this" listener="#{pessoaBean.pesquisaCep}" render="logradouro bairro localidade uf"/>
 	   	    </h:inputText>
 	   	  
