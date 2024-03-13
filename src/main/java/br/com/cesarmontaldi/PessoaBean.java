@@ -159,6 +159,14 @@ public class PessoaBean {
 		context.addMessage(null, message);
 	}
 	
+	public void carregaCidades(AjaxBehaviorEvent event) {
+		String codigoEstado = (String) event.getComponent().getAttributes().get("submittedValue");
+		
+		if (codigoEstado != null) {
+			System.out.println(codigoEstado);
+		}
+	}
+	
 	public void getIdade(AjaxBehaviorEvent event) {
 
 		LocalDate birthday = pessoa.getDataNascimento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
