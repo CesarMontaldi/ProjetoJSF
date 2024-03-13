@@ -20,6 +20,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.servlet.http.HttpServletRequest;
 
 import com.google.gson.Gson;
 
@@ -125,6 +126,18 @@ public class PessoaBean {
 			
 			return "principal.jsf";
 		}
+		
+		return "index.jsf";
+	}
+	
+	public String deslogar() {
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = context.getExternalContext();
+		externalContext.getSessionMap().remove("userLogado");
+		
+		HttpServletRequest servletRequest = (HttpServletRequest) context.getExternalContext().getRequest();
+		servletRequest.getSession().invalidate();
 		
 		return "index.jsf";
 	}
