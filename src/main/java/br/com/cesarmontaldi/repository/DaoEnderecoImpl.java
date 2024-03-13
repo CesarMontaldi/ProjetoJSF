@@ -10,7 +10,7 @@ import jakarta.persistence.EntityTransaction;
 public class DaoEnderecoImpl implements DaoEndereco {
 
 	@Override
-	public List<Endereco> consultarEndereco(Long idUser) {
+	public List<Endereco> consultarEnderecos() {
 		
 		List<Endereco> enderecos = null;
 		
@@ -18,12 +18,28 @@ public class DaoEnderecoImpl implements DaoEndereco {
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
-		enderecos = entityManager.createQuery(" select cep from Endereco where usuario.id= " + idUser).getResultList();
+		enderecos = entityManager.createQuery(" from Endereco ").getResultList();
 		
 		transaction.commit();
 		entityManager.close();
 		
 		return enderecos;
+	}
+	
+	public Endereco consultaEndereco(Long idUser) {
+		
+		Endereco endereco = null;
+		
+		EntityManager entityManager = JpaUtil.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		
+		endereco = (Endereco) entityManager.createQuery(" from Endereco where usuario.id= " + idUser).getSingleResult();
+		
+		transaction.commit();
+		entityManager.close();
+		
+		return endereco;
 	}
 
 }

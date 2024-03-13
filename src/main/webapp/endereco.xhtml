@@ -35,7 +35,6 @@
 	   	  <h:outputLabel value="Data Nascimento:" /> 
 	   	  <h:inputText id="dataNascimento" value="#{pessoaBean.pessoa.dataNascimento}" converterMessage="Data inválida!">
 	   	  	<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-03:00"/>
-	   	  	<f:ajax event="blur" execute="@this" listener="#{pessoaBean.getIdade}" render="idade"/>
 	   	  </h:inputText>
 	   	  
 	   	  <h:outputLabel value="Login:" /> 
@@ -64,26 +63,25 @@
 	   	  <h:outputLabel value="Ativo:" />
 	   	  <h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" style="margin-left: -2px;"/>
 	   	  
-	   	  
 	   	  <h:outputLabel value="CEP:" />
-	   	  	<h:inputText id="cep" value="#{pessoaBean.endereco.cep}" >
-	   	  		<f:ajax event="blur" execute="@this" listener="#{pessoaBean.pesquisaCep}" render="logradouro bairro localidade uf"/>
-	   	    </h:inputText>
+	   	  	<h:inputText id="cep" value="#{pessoaBean.pessoa.endereco.cep}" >
+	   	  	<f:ajax event="blur" execute="@form" listener="#{pessoaBean.pesquisaCep}" render="logradouro bairro localidade uf"/>
+	   	  </h:inputText>
 	   	  
 	   	  <h:outputLabel value="Rua:" /> 
-	   	  <h:inputText id="logradouro" value="#{pessoaBean.endereco.logradouro}"/>
+	   	  <h:inputText id="logradouro" value="#{pessoaBean.pessoa.endereco.logradouro}"/>
 	   	  
 	   	  <h:outputLabel value="Bairro:" /> 
-	   	  <h:inputText id="bairro" value="#{pessoaBean.endereco.bairro}"/>
+	   	  <h:inputText id="bairro" value="#{pessoaBean.pessoa.endereco.bairro}"/>
 	   	  
 	   	  <h:outputLabel value="Cidade:" /> 
-	   	  <h:inputText id="localidade" value="#{pessoaBean.endereco.localidade}"/>
+	   	  <h:inputText id="localidade" value="#{pessoaBean.pessoa.endereco.localidade}"/>
 	   	  
 	   	  <h:outputLabel value="Estado:" /> 
-	   	  <h:inputText id="uf" value="#{pessoaBean.endereco.uf}"/>
+	   	  <h:inputText id="uf" value="#{pessoaBean.pessoa.endereco.uf}"/>
 	   	  
 	   	  <h:outputLabel value="Número:" /> 
-	   	  <h:inputText id="numero" value="#{pessoaBean.endereco.numero}"/>
+	   	  <h:inputText id="numero" value="#{pessoaBean.pessoa.endereco.numero}"/>
 	   	  
 	   	  <h:outputLabel/>
 	   	  

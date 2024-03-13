@@ -1,0 +1,3 @@
+select e.cep, e.bairro, e.localidade, e.logradouro, e.numero, e.uf from endereco as e inner join pessoa on usuario_id = 21 group by e.id
+
+select from  endereco as e inner join pessoa on usuario_id = 21 group by e.id;

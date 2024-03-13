@@ -3,12 +3,15 @@ package br.com.cesarmontaldi.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Endereco implements Serializable{
@@ -25,7 +28,8 @@ public class Endereco implements Serializable{
 	private String uf;
 	private String numero;
 	
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@ManyToOne(optional = false)
+	@org.hibernate.annotations.ForeignKey(name = "usuario_fk")
 	private Pessoa usuario;
 
 	

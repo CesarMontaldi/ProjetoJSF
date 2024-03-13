@@ -8,12 +8,14 @@ import java.util.Objects;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -37,8 +39,7 @@ public class Pessoa implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 	
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
-	private List<Endereco> enderecos;
+	private Endereco endereco;
 	
 	public Pessoa() {
 		
@@ -124,14 +125,14 @@ public class Pessoa implements Serializable{
 		this.ativo = ativo;
 	}
 	
-	public List<Endereco> getEnderecos() {
-		return enderecos;
+	public Endereco getEndereco() {
+		return endereco;
 	}
-	
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
-	
+
 	public Pessoa getUserLogado() {
 		// retorna o usuario logado
 		FacesContext context = FacesContext.getCurrentInstance();

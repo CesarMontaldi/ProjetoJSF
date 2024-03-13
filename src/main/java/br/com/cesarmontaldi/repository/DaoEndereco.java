@@ -6,5 +6,7 @@ import br.com.cesarmontaldi.model.Endereco;
 
 public interface DaoEndereco {
 	
-	List<Endereco> consultarEndereco(Long idUser);
+	List<Endereco> consultarEnderecos();
+	
+	Endereco consultaEndereco(Long idUser);
 }
