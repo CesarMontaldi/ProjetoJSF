@@ -88,14 +88,14 @@
 	   	  <h:inputText id="numero" value="#{pessoaBean.endereco.numero}"/>
 	   	  
 	   	  <h:outputLabel value="Estados: " />
-	   	  <h:selectOneMenu id="estados" value="#{pessoaBean.pessoa.estados}" immediate="true">
+	   	  <h:selectOneMenu id="estados" value="#{pessoaBean.pessoa.estados}" immediate="true" converter="estadoConverter">
 	   	  	<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
 	   	  	<f:selectItems value="#{pessoaBean.estados}"/>
-	   	  	<f:ajax event="change" execute="@this" listener="#{pessoaBean.carregaCidades}" render="cidades"/>
+	   	  	<f:ajax event="change" execute="@this" listener="#{pessoaBean.carregaCidades}" render="cidades" />
 	   	  </h:selectOneMenu>
 	   	  
 	   	  <h:outputLabel value="Cidades: " />
-	   	  <h:selectOneMenu id="cidades" value="#{pessoaBean.pessoa.cidades}" immediate="true">
+	   	  <h:selectOneMenu id="cidades" value="#{pessoaBean.pessoa.cidades}" immediate="true" converter="cidadeConverter">
 	   	  	<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
 	   	  	<f:selectItems value="#{pessoaBean.cidades}"/>
 	   	  </h:selectOneMenu>

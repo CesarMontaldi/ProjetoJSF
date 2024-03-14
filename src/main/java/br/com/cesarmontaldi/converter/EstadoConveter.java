@@ -12,7 +12,7 @@ import br.com.cesarmontaldi.model.Estados;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-@FacesConverter(forClass = Estados.class)
+@FacesConverter(forClass = Estados.class, value = "estadoConverter")
 public class EstadoConveter implements Converter, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -32,7 +32,17 @@ public class EstadoConveter implements Converter, Serializable {
 	@Override /* Retorna apenas o código do Objeto em String */
 	public String getAsString(FacesContext context, UIComponent component, Object estado) {
 		
-		return ((Estados) estado).getId().toString();
+		if (estado == null) {
+			return null;
+		}
+		
+		if (estado instanceof Estados) {
+			return ((Estados) estado).getId().toString();
+		}
+		
+		else {
+			return estado.toString();
+		}
 	}
 
 }

@@ -12,7 +12,7 @@ import br.com.cesarmontaldi.model.Cidades;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-@FacesConverter(forClass = Cidades.class)
+@FacesConverter(forClass = Cidades.class, value = "cidadeConverter")
 public class CidadesConveter implements Converter, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -32,7 +32,17 @@ public class CidadesConveter implements Converter, Serializable {
 	@Override /* Retorna apenas o código do Objeto em String */
 	public String getAsString(FacesContext context, UIComponent component, Object cidade) {
 		
-		return ((Cidades) cidade).getId().toString();
+		if (cidade == null) {
+			return null;
+		}
+		
+		if (cidade instanceof Cidades) {
+			return ((Cidades) cidade).getId().toString();
+		}
+		
+		else {
+			return cidade.toString();
+		}
 	}
 
 }
