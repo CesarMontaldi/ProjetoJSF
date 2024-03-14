@@ -15,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -41,6 +42,9 @@ public class Pessoa implements Serializable{
 	private Date dataNascimento;
 	
 	private Endereco endereco;
+	
+	@ManyToOne
+	private Cidades cidades;
 	
 	@Transient /* Não fica perssistente / não grava no banco */
 	private Estados estados;
@@ -139,6 +143,18 @@ public class Pessoa implements Serializable{
 	
 	public Estados getEstados() {
 		return estados;
+	}
+	
+	public void setEstados(Estados estados) {
+		this.estados = estados;
+	}
+
+	public Cidades getCidades() {
+		return cidades;
+	}
+
+	public void setCidades(Cidades cidades) {
+		this.cidades = cidades;
 	}
 
 	public Pessoa getUserLogado() {

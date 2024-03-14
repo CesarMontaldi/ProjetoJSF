@@ -26,15 +26,15 @@
 	  		
 	  	  <h:outputLabel value="Nome:" /> 
 	   	  <h:inputText id="nome" value="#{pessoaBean.pessoa.nome}" required="true" requiredMessage="Informe o nome do usário!" 
-	   	  validatorMessage="Nome do Usuário deve ter no minimo 3 caracteres!" pt:placeholder="Informe seu nome.">
+	   	  validatorMessage="Nome do Usuário deve ter no minimo 3 caracteres!" >
 	   	  	<f:validateLength minimum="3" maximum="50" />
 	   	  </h:inputText>
 	   	  
 	 	  <h:outputLabel value="Sobrenome:" /> 
-	   	  <h:inputText id="sobrenome" value="#{pessoaBean.pessoa.sobrenome}" pt:placeholder="Informe seu sobrenome."/>
+	   	  <h:inputText id="sobrenome" value="#{pessoaBean.pessoa.sobrenome}" />
 	   	  
 	   	  <h:outputLabel value="Data Nascimento:" /> 
-	   	  <h:inputText id="dataNascimento" value="#{pessoaBean.pessoa.dataNascimento}" converterMessage="Data inválida!" pt:placeholder="Informe sua data de nascimento.">
+	   	  <h:inputText id="dataNascimento" value="#{pessoaBean.pessoa.dataNascimento}" converterMessage="Data inválida!" >
 	   	  	<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-03:00"/>
 	   	  	<f:ajax event="blur" execute="@this" listener="#{pessoaBean.getIdade}" render="idade"/>
 	   	  </h:inputText>
@@ -88,10 +88,16 @@
 	   	  <h:inputText id="numero" value="#{pessoaBean.endereco.numero}"/>
 	   	  
 	   	  <h:outputLabel value="Estados: " />
-	   	  <h:selectOneMenu value="#{pessoaBean.pessoa.estados}" immediate="true">
+	   	  <h:selectOneMenu id="estados" value="#{pessoaBean.pessoa.estados}" immediate="true">
 	   	  	<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
 	   	  	<f:selectItems value="#{pessoaBean.estados}"/>
-	   	  	<f:ajax event="change" execute="@this" listener="#{pessoaBean.carregaCidades}" />
+	   	  	<f:ajax event="change" execute="@this" listener="#{pessoaBean.carregaCidades}" render="cidades"/>
+	   	  </h:selectOneMenu>
+	   	  
+	   	  <h:outputLabel value="Cidades: " />
+	   	  <h:selectOneMenu id="cidades" value="#{pessoaBean.pessoa.cidades}" immediate="true">
+	   	  	<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+	   	  	<f:selectItems value="#{pessoaBean.cidades}"/>
 	   	  </h:selectOneMenu>
 	   	  
 	   	  <h:outputLabel/>

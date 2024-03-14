@@ -26,7 +26,10 @@ import javax.servlet.http.HttpServletRequest;
 import com.google.gson.Gson;
 
 import br.com.cesarmontaldi.dao.DaoGeneric;
+import br.com.cesarmontaldi.jpautil.JpaUtil;
+import br.com.cesarmontaldi.model.Cidades;
 import br.com.cesarmontaldi.model.Endereco;
+import br.com.cesarmontaldi.model.Estados;
 import br.com.cesarmontaldi.model.Pessoa;
 import br.com.cesarmontaldi.repository.DaoPessoa;
 import br.com.cesarmontaldi.repository.DaoPessoaImpl;
@@ -42,6 +45,7 @@ public class PessoaBean {
 	private Endereco endereco = new Endereco();
 	private EnderecoBean enderecoBean = new EnderecoBean();
 	private List<SelectItem> estados;
+	private List<SelectItem> cidades;
 	
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -78,6 +82,18 @@ public class PessoaBean {
 	public List<SelectItem> getEstados() {
 		estados = daoPessoa.listaEstados();
 		return estados;
+	}
+	
+	public void setEstados(List<SelectItem> estados) {
+		this.estados = estados;
+	}
+
+	public List<SelectItem> getCidades() {
+		return cidades;
+	}
+
+	public void setCidades(List<SelectItem> cidades) {
+		this.cidades = cidades;
 	}
 
 	public String salvar() {
@@ -163,7 +179,23 @@ public class PessoaBean {
 		String codigoEstado = (String) event.getComponent().getAttributes().get("submittedValue");
 		
 		if (codigoEstado != null) {
-			System.out.println(codigoEstado);
+			Estados estado = JpaUtil.getEntityManager().find(Estados.class, Long.parseLong(codigoEstado));
+			
+			if (estado != null) {
+				pessoa.setEstados(estado);
+				
+				List<Cidades> cidades = JpaUtil.getEntityManager().createQuery("from Cidades where estados.id = " + codigoEstado).getResultList();
+				
+				List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
+				
+				for (Cidades cidade : cidades) {
+					
+					selectItemsCidade.add(new SelectItem(cidade.getId(), cidade.getNome()));
+					
+				}
+				
+				setCidades(selectItemsCidade);
+			}
 		}
 	}
 	
