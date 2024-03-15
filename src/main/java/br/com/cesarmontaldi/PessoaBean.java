@@ -1,5 +1,7 @@
 package br.com.cesarmontaldi;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -25,8 +27,10 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
+import javax.xml.bind.DatatypeConverter;
 
 import com.google.gson.Gson;
 
@@ -136,8 +140,37 @@ public class PessoaBean {
 		return buf;
 	} 
 	
-	public String salvar() {
-		System.out.println(arquivoFoto);
+	public String salvar() throws IOException {
+		/* Processa a Imagem */
+		byte[] imagemByte = getByte(arquivoFoto.getInputStream());
+		pessoa.setFotoUser(imagemByte); /* Salva a foto em tamanho original */
+		
+		/* Transforma em BufferImage */
+		BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagemByte));
+		
+		/* Pega o tipo da imagem */
+		int type = bufferedImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
+		
+		int largura = 200;
+		int altura = 200;
+		
+		/* Cria a miniatura da foto */
+		BufferedImage resizedImage = new BufferedImage(largura, altura, type);
+		Graphics2D graphics2d = resizedImage.createGraphics();
+		graphics2d.drawImage(bufferedImage, 0, 0, largura, altura, null);
+		graphics2d.dispose();
+		
+		/* Escrever novamente a imagem em tamanho menor */
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		String extensao = arquivoFoto.getContentType().split("\\/")[1];
+		ImageIO.write(resizedImage, extensao, outStream);
+		
+		String miniImagem = "data:" + arquivoFoto.getContentType() +";base64," + DatatypeConverter.printBase64Binary(outStream.toByteArray());
+		
+		/* Processa a Imagem */
+		
+		pessoa.setFotoUserMin(miniImagem);
+		pessoa.setExtensao(extensao);
 		pessoa.setEndereco(endereco);
 		pessoa = daoGeneric.salvarEntity(pessoa);
 		enderecoBean.salvarEndereco(endereco, pessoa);
