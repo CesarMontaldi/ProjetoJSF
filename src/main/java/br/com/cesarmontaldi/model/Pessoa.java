@@ -2,24 +2,22 @@ package br.com.cesarmontaldi.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
@@ -33,6 +31,8 @@ public class Pessoa implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
+	
+	@NotBlank(message = "Campo sobrenome deve ser informado")
 	private String sobrenome;
 	private String login;
 	private String senha;
