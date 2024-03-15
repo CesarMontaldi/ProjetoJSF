@@ -13,13 +13,16 @@
 
   	<ui:include src="menu.xhtml" />
   	
-  	<h:form id="formPessoa" style="margin-left: 35px; margin-top:15px;">
+  	<h:form id="formPessoa" enctype="multipart/form-data" style="margin-left: 35px; margin-top:15px;">
   		
   		<h:messages infoStyle="list-style:none;color:green;font-size:20px;"/>
   		
   		<h:panelGrid columns="2">
   		 
-  		  <f:facet name="header"><h:outputText value="Cadastro de Usuário"/></f:facet>	
+  		  <f:facet name="header"><h:outputText value="Cadastro de Usuário"/></f:facet>
+  		  
+  		  <h:outputLabel value="Foto:" />
+  		  <h:inputFile id="fotoUser" value="#{pessoaBean.arquivoFoto}"></h:inputFile>
   		
 	  	  <h:outputLabel value="Id:" />
 	   	  <h:inputText id="id" value="#{pessoaBean.pessoa.id}" readonly="true"/>
