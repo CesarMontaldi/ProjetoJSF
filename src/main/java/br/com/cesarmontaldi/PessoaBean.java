@@ -1,6 +1,9 @@
 package br.com.cesarmontaldi;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -106,7 +109,32 @@ public class PessoaBean {
 	public void setArquivoFoto(Part arquivoFoto) {
 		this.arquivoFoto = arquivoFoto;
 	}
-
+	
+	/* Metodo que converte InputStream em um array de Bytes */
+	private byte[] getByte(InputStream inStream) throws IOException {
+		
+		int length; 
+		int size = 1024;
+		byte[] buf = null;
+		
+		if (inStream instanceof ByteArrayInputStream) {
+			size = inStream.available();
+			buf = new byte[size];
+			length = inStream.read(buf, 0, size);
+		}
+		else {
+			ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+			buf = new byte[size];
+			
+			while ((length = inStream.read(buf, 0, size)) != -1) {
+				outStream.write(buf, 0, length);
+			}
+			
+			buf = outStream.toByteArray();
+		}
+		
+		return buf;
+	} 
 	
 	public String salvar() {
 		System.out.println(arquivoFoto);
