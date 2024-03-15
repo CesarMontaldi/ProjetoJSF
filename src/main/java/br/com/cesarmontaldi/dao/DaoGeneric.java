@@ -51,15 +51,14 @@ public class DaoGeneric<Entity> {
 		return entityList;
 	}
 	
-	public Entity buscar(Entity entity) {
+	public Entity buscar(Entity entity, String idUser) {
 		
 		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
-		Object id = JpaUtil.getPrimaryKey(entity);
 		
-		Entity findEntity = (Entity) entityManager.find(entity.getClass(), id);
+		Entity findEntity = (Entity) entityManager.find(entity.getClass(), idUser);
 		
 		transaction.commit();
 		entityManager.close();

@@ -30,6 +30,7 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.xml.bind.DatatypeConverter;
 
@@ -326,10 +327,20 @@ public class PessoaBean {
 		}
 	}
 	
-	public void downloadFoto() {
+	public void downloadFoto() throws IOException {
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String fileDownloadId = params.get("fileDownloadId");
-		System.out.println(fileDownloadId);
+		
+		Pessoa user = daoGeneric.buscar(pessoa, fileDownloadId);
+		
+		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+		
+		response.addHeader("Content-Disposition", "attachment; filename=download." + user.getExtensao());
+		response.setContentType("application/octet-stream");
+		response.setContentLength(user.getFotoUser().length);
+		response.getOutputStream().write(user.getFotoUser());
+		response.getOutputStream().flush();
+		FacesContext.getCurrentInstance().responseComplete();
 	}
 	
 }
