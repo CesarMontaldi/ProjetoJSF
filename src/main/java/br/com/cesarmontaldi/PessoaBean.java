@@ -11,11 +11,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -143,36 +141,39 @@ public class PessoaBean {
 	} 
 	
 	public String salvar() throws IOException {
-		/* Processa a Imagem */
-		byte[] imagemByte = getByte(arquivoFoto.getInputStream());
-		pessoa.setFotoUser(imagemByte); /* Salva a foto em tamanho original */
 		
-		/* Transforma em BufferImage */
-		BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagemByte));
+		if (arquivoFoto != null) {
+			/* Processa a Imagem */
+			byte[] imagemByte = getByte(arquivoFoto.getInputStream());
+			pessoa.setFotoUser(imagemByte); /* Salva a foto em tamanho original */
+			
+			/* Transforma em BufferImage */
+			BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagemByte));
+			
+			/* Pega o tipo da imagem */
+			int type = bufferedImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
+			
+			int largura = 200;
+			int altura = 200;
+			
+			/* Cria a miniatura da foto */
+			BufferedImage resizedImage = new BufferedImage(largura, altura, type);
+			Graphics2D graphics2d = resizedImage.createGraphics();
+			graphics2d.drawImage(bufferedImage, 0, 0, largura, altura, null);
+			graphics2d.dispose();
+			
+			/* Escrever novamente a imagem em tamanho menor */
+			ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+			String extensao = arquivoFoto.getContentType().split("\\/")[1];
+			ImageIO.write(resizedImage, extensao, outStream);
+			
+			String miniImagem = "data:" + arquivoFoto.getContentType() +";base64," + DatatypeConverter.printBase64Binary(outStream.toByteArray());
+			
+			/* Processa a Imagem */
+			pessoa.setFotoUserMin(miniImagem);
+			pessoa.setExtensao(extensao);
+		}
 		
-		/* Pega o tipo da imagem */
-		int type = bufferedImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
-		
-		int largura = 200;
-		int altura = 200;
-		
-		/* Cria a miniatura da foto */
-		BufferedImage resizedImage = new BufferedImage(largura, altura, type);
-		Graphics2D graphics2d = resizedImage.createGraphics();
-		graphics2d.drawImage(bufferedImage, 0, 0, largura, altura, null);
-		graphics2d.dispose();
-		
-		/* Escrever novamente a imagem em tamanho menor */
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		String extensao = arquivoFoto.getContentType().split("\\/")[1];
-		ImageIO.write(resizedImage, extensao, outStream);
-		
-		String miniImagem = "data:" + arquivoFoto.getContentType() +";base64," + DatatypeConverter.printBase64Binary(outStream.toByteArray());
-		
-		/* Processa a Imagem */
-		
-		pessoa.setFotoUserMin(miniImagem);
-		pessoa.setExtensao(extensao);
 		pessoa.setEndereco(endereco);
 		pessoa = daoGeneric.salvarEntity(pessoa);
 		enderecoBean.salvarEndereco(endereco, pessoa);

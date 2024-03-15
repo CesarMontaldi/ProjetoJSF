@@ -25,6 +25,7 @@ public class DaoPessoaImpl implements DaoPessoa{
 		user = (Pessoa) entityManager.createQuery("select p from Pessoa p where p.login = '" + login + "' and p.senha = '" + senha + "'").getSingleResult(); 
 		
 		transaction.commit();
+		entityManager.close();
 		
 		return user;
 	}
@@ -44,6 +45,10 @@ public class DaoPessoaImpl implements DaoPessoa{
 			
 			selectItems.add(new SelectItem(estado, estado.getNome()));
 		}
+		
+		transaction.commit();
+		entityManager.close();
+		
 		return selectItems;
 	}
 	
