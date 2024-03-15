@@ -24,9 +24,13 @@ public class EstadoConveter implements Converter, Serializable {
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
-		Estados estado = (Estados) entityManager.find(Estados.class, Long.parseLong(codigoEstado));
-		
-		return estado;
+		if (codigoEstado.equalsIgnoreCase("Selecione")) {
+			return null;
+		}
+		else {
+			Estados estado = (Estados) entityManager.find(Estados.class, Long.parseLong(codigoEstado));
+			return estado;
+		}
 	}
 
 	@Override /* Retorna apenas o código do Objeto em String */

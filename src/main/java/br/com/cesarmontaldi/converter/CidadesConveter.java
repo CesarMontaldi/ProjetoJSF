@@ -24,9 +24,13 @@ public class CidadesConveter implements Converter, Serializable {
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
-		Cidades cidade = (Cidades) entityManager.find(Cidades.class, Long.parseLong(codigoCidade));
-		
-		return cidade;
+		if (codigoCidade.equalsIgnoreCase("Selecione")) {
+			return null;
+		}
+		else {
+			Cidades cidade = (Cidades) entityManager.find(Cidades.class, Long.parseLong(codigoCidade));
+			return cidade;
+		}
 	}
 
 	@Override /* Retorna apenas o código do Objeto em String */

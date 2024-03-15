@@ -98,11 +98,14 @@ public class PessoaBean {
 	}
 
 	public String salvar() {
+		
 		pessoa.setEndereco(endereco);
 		pessoa = daoGeneric.salvarEntity(pessoa);
 		enderecoBean.salvarEndereco(endereco, pessoa);
+		
 		carregarPessoas();
 		getMsg("Cadastrado com sucesso!");
+		
 		return "";
 	}
 	
@@ -118,11 +121,21 @@ public class PessoaBean {
 
 	public Pessoa editar() {
 		
-		if (pessoa.getEndereco() == null) {
-			endereco = new Endereco();
+		if (pessoa.getEndereco() != null) {
+			endereco = pessoa.getEndereco();
 		}
-		else {
-			endereco = enderecoBean.buscarEndereco(pessoa);
+		
+		if (pessoa.getCidades() != null) {
+			Estados estado = pessoa.getCidades().getEstados();
+			pessoa.setEstados(estado);
+			
+			List<Cidades> cidades = JpaUtil.getEntityManager().createQuery("from Cidades where estados.id = " + estado.getId()).getResultList();
+			List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
+			
+			for (Cidades cidade : cidades) {
+				selectItemsCidade.add(new SelectItem(cidade, cidade.getNome()));
+			}
+			setCidades(selectItemsCidade);
 		}
 		
 		return pessoa;

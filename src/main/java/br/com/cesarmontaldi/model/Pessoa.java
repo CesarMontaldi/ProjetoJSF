@@ -8,13 +8,16 @@ import java.util.Objects;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
@@ -48,6 +51,16 @@ public class Pessoa implements Serializable{
 	
 	@Transient /* Não fica perssistente / não grava no banco */
 	private Estados estados;
+	
+	@Column(columnDefinition = "text") /* Tipo text grava arquivos em base64 */
+	private String fotoUserMin;
+	
+	private String extensao;
+	
+	@Lob /* Grava arquivos no banco */
+	@Basic(fetch = FetchType.LAZY)
+	private byte[] fotoUser;
+	
 	
 	public Pessoa() {
 		
@@ -156,7 +169,32 @@ public class Pessoa implements Serializable{
 	public void setCidades(Cidades cidades) {
 		this.cidades = cidades;
 	}
+	
+	public String getFotoUserMin() {
+		return fotoUserMin;
+	}
 
+	public void setFotoUserMin(String fotoUserMin) {
+		this.fotoUserMin = fotoUserMin;
+	}
+
+	public String getExtensao() {
+		return extensao;
+	}
+
+	public void setExtensao(String extensao) {
+		this.extensao = extensao;
+	}
+
+	public byte[] getFotoUser() {
+		return fotoUser;
+	}
+
+	public void setFotoUser(byte[] fotoUser) {
+		this.fotoUser = fotoUser;
+	}
+
+	
 	public Pessoa getUserLogado() {
 		// retorna o usuario logado
 		FacesContext context = FacesContext.getCurrentInstance();
