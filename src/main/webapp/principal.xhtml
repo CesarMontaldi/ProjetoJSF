@@ -22,7 +22,7 @@
   		  <f:facet name="header"><h:outputText value="Cadastro de Usuário"/></f:facet>
   		  
   		  <h:outputLabel value="Foto:" />
-  		  <h:inputFile id="fotoUser" value="#{pessoaBean.arquivoFoto}"></h:inputFile>
+  		  <h:inputFile id="fotoUser" value="#{pessoaBean.arquivoFoto}" ></h:inputFile>
   		
 	  	  <h:outputLabel value="Id:" />
 	   	  <h:inputText id="id" value="#{pessoaBean.pessoa.id}" readonly="true"/>
@@ -125,6 +125,14 @@
 	   	  	<h:column>
 	   	  		<f:facet name="header">ID</f:facet>
 	   	  		<h:outputText value="#{pessoa.id}" />
+	   	  	</h:column>
+	   	  	
+	   	  	<h:column>
+	   	  		<f:facet name="header">Foto</f:facet>
+	   	  		<h:commandLink actionListener="#{pessoaBean.downloadFoto}">
+	   	  			<h:graphicImage width="60" height="60" style="border-radius:50%;" value="#{pessoa.fotoUserMin}" />
+	   	  			<f:param name="fileDownloadId" value="#{pessoa.id}"/>
+	   	  		</h:commandLink>
 	   	  	</h:column>
 
 	   	  	<h:column>
