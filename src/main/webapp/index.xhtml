@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
 
   <h:head>
     <title>Login</title>
@@ -16,12 +17,12 @@
   		
   		<h:panelGrid columns="2">
 	 		<h:outputLabel value="Login"/>
-	   	  	<h:inputText id="nome" value="#{pessoaBean.pessoa.login}"/>
+	   	  	<b:inputText id="nome" value="#{pessoaBean.pessoa.login}"/>
 	   	  	
 	   	  	<h:outputLabel value="Senha"/>
-	   	  	<h:inputSecret id="senha" value="#{pessoaBean.pessoa.senha}"/>
+	   	  	<b:inputSecret id="senha" value="#{pessoaBean.pessoa.senha}"/>
   		
-  			<h:commandButton action="#{pessoaBean.login}" value="Acessar"/>
+  			<b:commandButton action="#{pessoaBean.login}" value="Acessar"/>
   		</h:panelGrid>
   		
    	  

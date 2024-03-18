@@ -36,6 +36,7 @@ import javax.xml.bind.DatatypeConverter;
 import com.google.gson.Gson;
 
 import br.com.cesarmontaldi.dao.DaoGeneric;
+import br.com.cesarmontaldi.jpautil.JpaUtil;
 import br.com.cesarmontaldi.model.Cidades;
 import br.com.cesarmontaldi.model.Endereco;
 import br.com.cesarmontaldi.model.Estados;
@@ -45,7 +46,7 @@ import jakarta.persistence.EntityManager;
 
 @javax.faces.view.ViewScoped
 @Named("pessoaBean")
-public class PessoaBean implements Serializable{
+public class PessoaBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -62,10 +63,12 @@ public class PessoaBean implements Serializable{
 	
 	@Inject
 	private DaoPessoa daoPessoa;
-
 	
 	@Inject
 	private EntityManager entityManager;
+	
+	@Inject
+	private JpaUtil jpaUtil;
 	
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -124,6 +127,14 @@ public class PessoaBean implements Serializable{
 		this.arquivoFoto = arquivoFoto;
 	}
 	
+	public DaoGeneric<Pessoa> getDaoGeneric() {
+		return daoGeneric;
+	}
+
+	public void setDaoGeneric(DaoGeneric<Pessoa> daoGeneric) {
+		this.daoGeneric = daoGeneric;
+	}
+
 	/* Metodo que converte InputStream em um array de Bytes */
 	private byte[] getByte(InputStream inStream) throws IOException {
 		
@@ -185,7 +196,7 @@ public class PessoaBean implements Serializable{
 		}
 		
 		pessoa.setEndereco(endereco);
-		pessoa = daoGeneric.salvarEntity(pessoa);
+		pessoa = daoGeneric.salvarEntity(pessoa); 
 		enderecoBean.salvarEndereco(endereco, pessoa);
 		
 		carregarPessoas();
@@ -214,7 +225,7 @@ public class PessoaBean implements Serializable{
 			Estados estado = pessoa.getCidades().getEstados();
 			pessoa.setEstados(estado);
 			
-			List<Cidades> cidades = entityManager.createQuery("from Cidades where estados.id = " + estado.getId()).getResultList();
+			List<Cidades> cidades = jpaUtil.getEntityManager().createQuery("from Cidades where estados.id = " + estado.getId()).getResultList();
 			List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
 			
 			for (Cidades cidade : cidades) {
@@ -284,7 +295,7 @@ public class PessoaBean implements Serializable{
 	
 			pessoa.setEstados(estado);
 			
-			List<Cidades> cidades = entityManager.createQuery("from Cidades where estados.id = " + estado.getId()).getResultList();
+			List<Cidades> cidades = jpaUtil.getEntityManager().createQuery("from Cidades where estados.id = " + estado.getId()).getResultList();
 			
 			List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
 			

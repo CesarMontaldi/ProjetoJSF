@@ -7,25 +7,23 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.cesarmontaldi.dao.DaoGeneric;
+import br.com.cesarmontaldi.jpautil.JpaUtil;
 import br.com.cesarmontaldi.model.Endereco;
 import br.com.cesarmontaldi.model.Pessoa;
 import br.com.cesarmontaldi.repository.DaoEndereco;
+import br.com.cesarmontaldi.repository.DaoEnderecoImpl;
+import jakarta.persistence.EntityManager;
 
 
 @javax.faces.view.ViewScoped
 @Named("enderecoBean")
-public class EnderecoBean implements Serializable{
+public class EnderecoBean implements Serializable {
 
 	private static final long serialVersionUID = 1L; 
 	
 	private Pessoa pessoa = new Pessoa();
 	private Endereco endereco = new Endereco();
-	
-	@Inject
-	private DaoGeneric<Endereco> daoGeneric;
-	
-	@Inject
-	private DaoEndereco daoEndereco;
+	private DaoEndereco daoEndereco = new DaoEnderecoImpl();
 
 	
 	public Endereco getEndereco() {
@@ -34,14 +32,6 @@ public class EnderecoBean implements Serializable{
 	
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
-	}
-	
-	public DaoGeneric<Endereco> getDaoGeneric() {
-		return daoGeneric;
-	}
-	
-	public void setDaoGeneric(DaoGeneric<Endereco> daoGeneric) {
-		this.daoGeneric = daoGeneric;
 	}
 	
 	public DaoEndereco getDaoEndereco() {
@@ -65,8 +55,8 @@ public class EnderecoBean implements Serializable{
 	public Endereco salvarEndereco(Endereco endereco, Pessoa pessoa) {
 		
 		endereco.setUsuario(pessoa);
-		endereco = daoGeneric.salvarEntity(endereco);
-		
+		endereco = daoEndereco.salvarEndereco(endereco);
+
 		return endereco;
 	}
 

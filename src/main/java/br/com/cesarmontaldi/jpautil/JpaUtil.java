@@ -1,7 +1,6 @@
 package br.com.cesarmontaldi.jpautil;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 
 import jakarta.persistence.EntityManager;
@@ -20,7 +19,7 @@ public class JpaUtil {
 	}
 	
 	@Produces
-	@RequestScoped
+	@ApplicationScoped
 	public EntityManager getEntityManager() {
 		return factory.createEntityManager();
 	}

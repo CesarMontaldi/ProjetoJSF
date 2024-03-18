@@ -15,7 +15,7 @@ import br.com.cesarmontaldi.repository.DaoLancamento;
 
 @javax.faces.view.ViewScoped
 @Named("lancamentoBean")
-public class LancamentoBean implements Serializable{
+public class LancamentoBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	

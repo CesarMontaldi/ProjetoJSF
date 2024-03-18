@@ -10,21 +10,21 @@ import br.com.cesarmontaldi.jpautil.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-@Named
-public class DaoGeneric<Entity> implements Serializable{
+@Named("daoGeneric")
+public class DaoGeneric<Entity> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	private EntityManager entityManager;
 	
 	@Inject
-	public DaoGeneric(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
-	
-	@Inject
 	private JpaUtil jpaUtil;
+	
+	public DaoGeneric() {
+		
+	}
+
 	
 	public void salvar(Entity entity) {
 		EntityTransaction transaction = entityManager.getTransaction();

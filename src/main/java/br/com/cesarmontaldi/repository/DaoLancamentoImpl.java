@@ -9,7 +9,7 @@ import br.com.cesarmontaldi.model.Lancamento;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-public class DaoLancamentoImpl implements DaoLancamento, Serializable{
+public class DaoLancamentoImpl implements DaoLancamento, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
