@@ -27,6 +27,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import javax.imageio.ImageIO;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
@@ -42,6 +43,7 @@ import br.com.cesarmontaldi.model.Estados;
 import br.com.cesarmontaldi.model.Pessoa;
 import br.com.cesarmontaldi.repository.DaoPessoa;
 import br.com.cesarmontaldi.repository.DaoPessoaImpl;
+import jakarta.persistence.EntityManager;
 
 @ViewScoped
 @ManagedBean(name = "pessoaBean")
@@ -56,6 +58,9 @@ public class PessoaBean {
 	private List<SelectItem> estados;
 	private List<SelectItem> cidades;
 	private Part arquivoFoto;
+	
+	@Inject
+	private EntityManager entityManager;
 	
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -313,19 +318,20 @@ public class PessoaBean {
 			while ((cep = bufferedReader.readLine()) != null) {
 				jsonCep.append(cep);
 			}
-			
-			Endereco gson = new Gson().fromJson(jsonCep.toString(), Endereco.class);
-			
-			endereco.setCep(gson.getCep());
-			endereco.setLogradouro(gson.getLogradouro());
-			endereco.setBairro(gson.getBairro());
-			endereco.setLocalidade(gson.getLocalidade());
-			endereco.setUf(gson.getUf());
+				Endereco gson = new Gson().fromJson(jsonCep.toString(), Endereco.class);
+				
+				endereco.setCep(gson.getCep());
+				endereco.setLogradouro(gson.getLogradouro());
+				endereco.setBairro(gson.getBairro());
+				endereco.setLocalidade(gson.getLocalidade());
+				endereco.setUf(gson.getUf());
+				
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			getMsg("Erro ao consultar o cep!");
+			
 		}
+		
 	}
 	
 	public void downloadFoto() throws IOException {
