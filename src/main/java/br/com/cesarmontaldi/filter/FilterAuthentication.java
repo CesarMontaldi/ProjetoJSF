@@ -2,6 +2,7 @@ package br.com.cesarmontaldi.filter;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -18,6 +19,9 @@ import br.com.cesarmontaldi.model.Pessoa;
 
 @WebFilter(urlPatterns = {"/*"})
 public class FilterAuthentication implements Filter {
+	
+	@Inject
+	private JpaUtil jpaUtil;
  
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -43,7 +47,7 @@ public class FilterAuthentication implements Filter {
 	@Override
 	public void init(FilterConfig filter) throws ServletException {
 		
-		JpaUtil.getEntityManager();
+		jpaUtil.getEntityManager();
 	}
 
 }

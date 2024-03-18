@@ -1,27 +1,33 @@
 package br.com.cesarmontaldi;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.cesarmontaldi.dao.DaoGeneric;
 import br.com.cesarmontaldi.model.Lancamento;
 import br.com.cesarmontaldi.model.Pessoa;
 import br.com.cesarmontaldi.repository.DaoLancamento;
-import br.com.cesarmontaldi.repository.DaoLancamentoImpl;
 
-@ViewScoped
-@ManagedBean(name = "lancamentoBean")
-public class LancamentoBean {
+@javax.faces.view.ViewScoped
+@Named("lancamentoBean")
+public class LancamentoBean implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	
 	private Lancamento lancamento = new Lancamento();
-	private DaoGeneric<Lancamento> daoGeneric = new DaoGeneric<Lancamento>();
-	private List<Lancamento> lancamentos = new ArrayList<Lancamento>();
-	private DaoLancamento daoLancamento = new DaoLancamentoImpl(); 
 	private Pessoa pessoa = new Pessoa();
+	private List<Lancamento> lancamentos = new ArrayList<Lancamento>();
+	
+	@Inject
+	private DaoGeneric<Lancamento> daoGeneric;
+	
+	@Inject
+	private DaoLancamento daoLancamento; 
 	
 	
 	public void novo() {

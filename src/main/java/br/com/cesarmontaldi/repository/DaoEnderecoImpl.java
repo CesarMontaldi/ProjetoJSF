@@ -1,27 +1,31 @@
 package br.com.cesarmontaldi.repository;
 
+import java.io.Serializable;
 import java.util.List;
 
-import br.com.cesarmontaldi.jpautil.JpaUtil;
+import javax.inject.Inject;
+
 import br.com.cesarmontaldi.model.Endereco;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-public class DaoEnderecoImpl implements DaoEndereco {
+public class DaoEnderecoImpl implements DaoEndereco, Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private EntityManager entityManager;
 
 	@Override
 	public List<Endereco> consultarEnderecos() {
-		
 		List<Endereco> enderecos = null;
 		
-		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
 		enderecos = entityManager.createQuery(" from Endereco ").getResultList();
 		
 		transaction.commit();
-		entityManager.close();
 		
 		return enderecos;
 	}
@@ -29,15 +33,12 @@ public class DaoEnderecoImpl implements DaoEndereco {
 	public Endereco consultaEndereco(Long idUser) {
 		
 		Endereco endereco = null;
-		
-		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
 		endereco = (Endereco) entityManager.createQuery(" from Endereco where usuario.id= " + idUser).getSingleResult();
 		
 		transaction.commit();
-		entityManager.close();
 		
 		return endereco;
 	}

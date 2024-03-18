@@ -1,36 +1,48 @@
 package br.com.cesarmontaldi.dao;
 
+import java.io.Serializable;
 import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.cesarmontaldi.jpautil.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-public class DaoGeneric<Entity> {
+@Named
+public class DaoGeneric<Entity> implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private EntityManager entityManager;
+	
+	@Inject
+	public DaoGeneric(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+	
+	@Inject
+	private JpaUtil jpaUtil;
 	
 	public void salvar(Entity entity) {
-		
-		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
 		entityManager.persist(entity);
 		
 		transaction.commit();
-		entityManager.close();
 
 	}
 	
 	public Entity salvarEntity(Entity entity) {
-		
-		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
 		Entity newEntity = entityManager.merge(entity);
 		
 		transaction.commit();
-		entityManager.close();
 		
 		return newEntity;
 
@@ -38,22 +50,17 @@ public class DaoGeneric<Entity> {
 	
 	
 	public List<Entity> getListEntity(Class<Entity> entity) {
-		
-		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
 		List<Entity> entityList = entityManager.createQuery(" from " + entity.getName() + " order by id ASC ").getResultList();
 		
 		transaction.commit();
-		entityManager.close();
 		
 		return entityList;
 	}
 	
 	public Entity buscar(Entity entity, String idUser) {
-		
-		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
@@ -61,36 +68,30 @@ public class DaoGeneric<Entity> {
 		Entity findEntity = (Entity) entityManager.find(entity.getClass(), idUser);
 		
 		transaction.commit();
-		entityManager.close();
-		
+
 		return findEntity;
 
 	}
 	
 	public void delete(Entity entity) {
-		
-		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
 		entityManager.remove(entity);
 		
 		transaction.commit();
-		entityManager.close();
 
 	}
 	
 	public void deletePorId(Entity entity) {
 		
-		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
-		Object id = JpaUtil.getPrimaryKey(entity);
+		Object id = jpaUtil.getPrimaryKey(entity);
 		entityManager.createQuery("delete from " + entity.getClass().getSimpleName() + " where id = " + id).executeUpdate();
 		
 		transaction.commit();
-		entityManager.close();
 
 	}
 

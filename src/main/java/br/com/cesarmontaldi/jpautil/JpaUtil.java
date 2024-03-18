@@ -1,24 +1,31 @@
 package br.com.cesarmontaldi.jpautil;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Produces;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+@ApplicationScoped
 public class JpaUtil {
 	
-	private static EntityManagerFactory factory = null;
+	private EntityManagerFactory factory = null;
 	
-	static {
+	public JpaUtil() {
 		if (factory == null) {
 			factory = Persistence.createEntityManagerFactory("ProjetoJSF");
 		}
 	}
-
-	public static EntityManager getEntityManager() {
+	
+	@Produces
+	@RequestScoped
+	public EntityManager getEntityManager() {
 		return factory.createEntityManager();
 	}
 	
-	public static Object getPrimaryKey(Object entity) {
+	public Object getPrimaryKey(Object entity) {
 		
 		return factory.getPersistenceUnitUtil().getIdentifier(entity);
 	} 

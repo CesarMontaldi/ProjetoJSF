@@ -6,8 +6,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 
-import br.com.cesarmontaldi.jpautil.JpaUtil;
 import br.com.cesarmontaldi.model.Estados;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -16,11 +16,13 @@ import jakarta.persistence.EntityTransaction;
 public class EstadoConveter implements Converter, Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private EntityManager entityManager;
 
 	@Override /* Retorna o Objeto inteiro */
 	public Object getAsObject(FacesContext context, UIComponent component, String codigoEstado) {
 		
-		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		

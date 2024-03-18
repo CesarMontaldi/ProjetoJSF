@@ -1,37 +1,33 @@
 package br.com.cesarmontaldi;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
-
-import com.google.gson.Gson;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.cesarmontaldi.dao.DaoGeneric;
 import br.com.cesarmontaldi.model.Endereco;
 import br.com.cesarmontaldi.model.Pessoa;
 import br.com.cesarmontaldi.repository.DaoEndereco;
-import br.com.cesarmontaldi.repository.DaoEnderecoImpl;
 
 
-@ViewScoped
-@ManagedBean(name = "enderecoBean")
-public class EnderecoBean { 
+@javax.faces.view.ViewScoped
+@Named("enderecoBean")
+public class EnderecoBean implements Serializable{
+
+	private static final long serialVersionUID = 1L; 
 	
-	private Endereco endereco = new Endereco();
 	private Pessoa pessoa = new Pessoa();
-	private DaoGeneric<Endereco> daoGeneric = new DaoGeneric<Endereco>();
-	private DaoEndereco daoEndereco = new DaoEnderecoImpl();
+	private Endereco endereco = new Endereco();
+	
+	@Inject
+	private DaoGeneric<Endereco> daoGeneric;
+	
+	@Inject
+	private DaoEndereco daoEndereco;
 
+	
 	public Endereco getEndereco() {
 		return endereco;
 	}

@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.URL;
 import java.net.URLConnection;
 import java.time.LocalDate;
@@ -19,8 +20,6 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -28,6 +27,7 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
@@ -36,28 +36,33 @@ import javax.xml.bind.DatatypeConverter;
 import com.google.gson.Gson;
 
 import br.com.cesarmontaldi.dao.DaoGeneric;
-import br.com.cesarmontaldi.jpautil.JpaUtil;
 import br.com.cesarmontaldi.model.Cidades;
 import br.com.cesarmontaldi.model.Endereco;
 import br.com.cesarmontaldi.model.Estados;
 import br.com.cesarmontaldi.model.Pessoa;
 import br.com.cesarmontaldi.repository.DaoPessoa;
-import br.com.cesarmontaldi.repository.DaoPessoaImpl;
 import jakarta.persistence.EntityManager;
 
-@ViewScoped
-@ManagedBean(name = "pessoaBean")
-public class PessoaBean {
+@javax.faces.view.ViewScoped
+@Named("pessoaBean")
+public class PessoaBean implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	private Pessoa pessoa = new Pessoa();
-	private DaoGeneric<Pessoa> daoGeneric = new DaoGeneric<Pessoa>();
-	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
-	private DaoPessoa daoPessoa = new DaoPessoaImpl();
 	private Endereco endereco = new Endereco();
 	private EnderecoBean enderecoBean = new EnderecoBean();
+	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 	private List<SelectItem> estados;
 	private List<SelectItem> cidades;
 	private Part arquivoFoto;
+	
+	@Inject
+	private DaoGeneric<Pessoa> daoGeneric;
+	
+	@Inject
+	private DaoPessoa daoPessoa;
+
 	
 	@Inject
 	private EntityManager entityManager;
@@ -209,7 +214,7 @@ public class PessoaBean {
 			Estados estado = pessoa.getCidades().getEstados();
 			pessoa.setEstados(estado);
 			
-			List<Cidades> cidades = JpaUtil.getEntityManager().createQuery("from Cidades where estados.id = " + estado.getId()).getResultList();
+			List<Cidades> cidades = entityManager.createQuery("from Cidades where estados.id = " + estado.getId()).getResultList();
 			List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
 			
 			for (Cidades cidade : cidades) {
@@ -279,7 +284,7 @@ public class PessoaBean {
 	
 			pessoa.setEstados(estado);
 			
-			List<Cidades> cidades = JpaUtil.getEntityManager().createQuery("from Cidades where estados.id = " + estado.getId()).getResultList();
+			List<Cidades> cidades = entityManager.createQuery("from Cidades where estados.id = " + estado.getId()).getResultList();
 			
 			List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
 			
