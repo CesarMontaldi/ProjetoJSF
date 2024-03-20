@@ -12,42 +12,45 @@
   <h:body>
   
   	<ui:include src="menu.xhtml" />
-  
-  	<h:form id="formLancameento" style="margin-left: 35px; margin-top:15px;"> 
+	
+	<b:messages id="msg" infoStyle="color:green;font-size:18px;"/>
+	
+  	<b:form id="formLancamento" style="margin-left: 35px; margin-top:15px;"> 
+
+	  	<h4 style="margin-left: 30px;">Cadastro de Lançamentos</h4>
   		
-  		<h:panelGrid columns="2">
-  			
-  			<f:facet name="header" >
-   	  			<h:outputText value="Lançamentos" style="margin-left: 30px;"/>
-	  		</f:facet>
-   	  	 	<h:outputLabel/>
-   	  	 	<h:outputLabel/>
-   	  	 	<h:outputLabel value="ID:" />
-   	  	 	<h:inputText id="id" value="#{lancamentoBean.lancamento.id}"/>
-   	  	 	
-   	  	 	<h:outputLabel value="Nota:" />
-   	  	 	<h:inputText id="nota" value="#{lancamentoBean.lancamento.numeroNotaFiscal}"/>
-   	  	 	
-   	  	 	<h:outputLabel value="Origem:" />
-   	  	 	<h:inputText id="origem" value="#{lancamentoBean.lancamento.empresaOrigem}"/>
-   	  	 	
-   	  	 	<h:outputLabel value="Destino:" />
-   	  	 	<h:inputText id="destino" value="#{lancamentoBean.lancamento.empresaDestino}"/>
-   	  	 	
-   	  	 	<h:outputLabel/>
-   	  	 	<h:outputLabel/>
-   	  	 	<h:outputLabel/>
-	   	  
-  	  		<h:panelGroup style="margin-left: -60px; margin-top: 20px;">
-	  	    	<h:commandButton action="#{lancamentoBean.novo}" value="Novo" />
-  	    		<h:commandButton action="#{lancamentoBean.salvar}" value="Salvar" style="margin-left: 10px;" />
-  	    		<h:commandButton action="#{lancamentoBean.delete}" value="Excluir" style="margin-left: 10px;" rendered="#{pessoaBean.allowAccess('ADMINISTRADOR')}"/>
-  	    		<h:commandButton value="Limpar" type="reset" style="margin-left: 10px;" />
-  	  		</h:panelGroup>
-  	  		
-  		</h:panelGrid>
-  		
-  		<h:dataTable value="#{lancamentoBean.lancamentos}" var="lancamento" border="2" cellpadding="3" style="margin-top: 10px;">
+  		<b:panelGrid columns="1" col-lg="6">
+  			<b:panel>
+	   	  	 	<h:outputLabel value="ID:" />
+	   	  	 	<b:inputText id="id" value="#{lancamentoBean.lancamento.id}" readonly="true"/>
+	   	  	 	
+	   	  	 	<h:outputLabel value="Nota:" />
+	   	  	 	<b:inputText id="nota" value="#{lancamentoBean.lancamento.numeroNotaFiscal}" required="true" requiredMessage="Informe número da Nota!" />
+	   	  	 	<b:message for="nota" error-style="color:red;" />
+	   	  	 	
+	   	  	 	<h:outputLabel value="Origem:" />
+	   	  	 	<b:inputText id="origem" value="#{lancamentoBean.lancamento.empresaOrigem}" required="true" requiredMessage="Informe a Origem!" />
+	 	  	 	<b:message for="origem" error-style="color:red;" />
+	   	  	 	
+	   	  	 	<h:outputLabel value="Destino:" />
+	   	  	 	<b:inputText id="destino" value="#{lancamentoBean.lancamento.empresaDestino}" required="true" requiredMessage="Informe o Destino!" />
+		   	  	<b:message for="destino" error-style="color:red;" />
+		   	  
+		   	  
+	  	  		<h:panelGroup style="margin-top: 5px;">
+		  	    	<b:commandButton action="#{lancamentoBean.novo}" value="Novo" look="primary" />
+	  	    		<b:commandButton action="#{lancamentoBean.salvar}" value="Salvar" style="margin-left: 10px;" look="success" />
+	  	    		<b:commandButton action="#{lancamentoBean.delete}" value="Excluir" style="margin-left: 10px;" rendered="#{pessoaBean.allowAccess('ADMINISTRADOR')}" look="danger" />
+	  	    		<b:commandButton value="Limpar" type="reset" style="margin-left: 10px;" look="warning" />
+	  	  		</h:panelGroup>
+	  	  		<h:outputLabel/>
+  	  		</b:panel>
+  		</b:panelGrid>
+  	</b:form>
+  	
+  	<b:form id="formTableLancamento" style="margin-left: 35px; margin-top:15px;">
+  	
+  		<b:dataTable value="#{lancamentoBean.lancamentos}" var="lancamento" border="2" cellpadding="3" style="margin-top: 10px;" col-lg="11">
 	   	  
 	   	  	<f:facet name="header"><h:outputText value="Lista de lançamentos"/></f:facet>
 	   	  	
@@ -86,9 +89,9 @@
 	   	  		</h:commandButton>
 	  	  	</h:column>
 	  	  	
-	   	  </h:dataTable>
+	   	  </b:dataTable>
    	  
-  	</h:form>
+  	</b:form>
   	
   </h:body>
   

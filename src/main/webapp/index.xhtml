@@ -12,21 +12,36 @@
 
   <h:body>
   
-  	<h:form id="formLogin" style="margin-top:17%; margin-left:40%;"> 
-  		<h2 style="margin-left:50px;">Realize o login</h2>
+  	
+  	<b:messages only-most-severe="true" value="small-screen='one-third'" small-screen="one-third" id="msg" infoStyle="color:#a94442; background-color:#f2dede; border-color:#dca7a7; background-image: color:#d9534f; content:\e088;"/>  
+  	<h:outputLabel/>
+  	<b:form id="formLogin" style="margin-top:17%; margin-left:40%;" > 
   		
-  		<h:panelGrid columns="2">
+  		<h2 style="margin-left:30px;">Realize o login</h2>
+  		
+  		<b:panelGrid columns="1" col-lg="4"> 
+  		
 	 		<h:outputLabel value="Login"/>
-	   	  	<b:inputText id="nome" value="#{pessoaBean.pessoa.login}"/>
+	   	  	<b:inputText id="login" value="#{pessoaBean.pessoa.login}" required="true" requiredMessage="Informe o login!" >
+		   	  	<f:facet name="prepend">
+			      <b:icon name="user" />
+			    </f:facet>
+		    </b:inputText>
+	   	  	<b:message for="login" error-style="color:red;"/>
 	   	  	
-	   	  	<h:outputLabel value="Senha"/>
-	   	  	<b:inputSecret id="senha" value="#{pessoaBean.pessoa.senha}"/>
-  		
-  			<b:commandButton action="#{pessoaBean.login}" value="Acessar"/>
-  		</h:panelGrid>
+	   	  	<h:outputLabel value="Senha" />
+	   	  	<b:inputSecret id="senha" value="#{pessoaBean.pessoa.senha}" required="true" requiredMessage="Informe a senha!">
+	   	  		<f:facet name="prepend">
+			      <b:iconAwesome name="key" />
+			    </f:facet>
+	   	  	</b:inputSecret>
+  			<b:message for="senha" error-style="color:red;" />
+  			
+  			<b:commandButton action="#{pessoaBean.login}" value="Acessar" />
+  		</b:panelGrid>
   		
    	  
-  	</h:form>
+  	</b:form>
   	
   </h:body>
   

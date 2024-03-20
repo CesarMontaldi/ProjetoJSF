@@ -10,7 +10,7 @@ import br.com.cesarmontaldi.jpautil.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-@Named("daoGeneric")
+@Named
 public class DaoGeneric<Entity> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -56,6 +56,7 @@ public class DaoGeneric<Entity> implements Serializable {
 		List<Entity> entityList = entityManager.createQuery(" from " + entity.getName() + " order by id ASC ").getResultList();
 		
 		transaction.commit();
+		
 		
 		return entityList;
 	}

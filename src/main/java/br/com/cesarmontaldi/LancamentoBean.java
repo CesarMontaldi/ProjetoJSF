@@ -2,9 +2,12 @@ package br.com.cesarmontaldi;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -39,8 +42,12 @@ public class LancamentoBean implements Serializable {
 		
 		Pessoa user = pessoa.getUserLogado();
 		lancamento.setUsuario(user);
+		if (lancamento.getId() == null) {
+			lancamento.setDataCadastro(new Date());
+		}
 		lancamento = daoGeneric.salvarEntity(lancamento);
-
+		getMsg("Salvo com sucesso!");
+		
 		carregarLancamentos();
 	}
 	
@@ -62,10 +69,16 @@ public class LancamentoBean implements Serializable {
 		daoGeneric.deletePorId(lancamento);
 		lancamento = new Lancamento();
 		carregarLancamentos();
+		getMsg("Excluido com sucesso!");
 		
 		return "";
 	}
-
+	
+	public void getMsg(String msg) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		FacesMessage message = new FacesMessage(msg);
+		context.addMessage("msg", message);
+	}
 	
 	public Lancamento getLancamento() {
 		return lancamento;

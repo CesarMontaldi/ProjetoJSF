@@ -30,6 +30,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.xml.bind.DatatypeConverter;
 
@@ -43,6 +44,7 @@ import br.com.cesarmontaldi.model.Estados;
 import br.com.cesarmontaldi.model.Pessoa;
 import br.com.cesarmontaldi.repository.DaoPessoa;
 import jakarta.persistence.EntityManager;
+import net.bootsfaces.component.selectOneMenu.SelectOneMenu;
 
 @javax.faces.view.ViewScoped
 @Named("pessoaBean")
@@ -254,9 +256,16 @@ public class PessoaBean implements Serializable {
 			// adicionar o usuário na sessão
 			FacesContext context = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = context.getExternalContext();
-			externalContext.getSessionMap().put("userLogado", user);
+			
+			HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+			HttpSession session = request.getSession();
+			
+			session.setAttribute("userLogado", user);
 			
 			return "principal.jsf";
+		}
+		else {
+			getMsg("Usuário não encontrado!");
 		}
 		
 		return "index.jsf";
@@ -288,7 +297,7 @@ public class PessoaBean implements Serializable {
 	public void carregaCidades(AjaxBehaviorEvent event) {
 		//String codigoEstado = (String) event.getComponent().getAttributes().get("submittedValue");
 		
-		Estados estado = (Estados) ((HtmlSelectOneMenu) event.getSource()).getValue();
+		Estados estado = (Estados) ((SelectOneMenu) event.getSource()).getValue();
 
 		
 		if (estado != null) {

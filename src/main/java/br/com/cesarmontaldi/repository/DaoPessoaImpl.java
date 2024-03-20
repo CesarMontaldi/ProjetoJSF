@@ -26,7 +26,14 @@ public class DaoPessoaImpl implements DaoPessoa, Serializable{
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
-		user = (Pessoa) entityManager.createQuery("select p from Pessoa p where p.login = '" + login + "' and p.senha = '" + senha + "'").getSingleResult(); 
+		try {
+		user = (Pessoa) entityManager
+				.createQuery("select p from Pessoa p where p.login = '" + login + "' and p.senha = '" + senha + "'")
+				.getSingleResult(); 
+		} 
+		catch (jakarta.persistence.NoResultException e) { /* Tratamento senão encontrar usuário com o login e senha*/
+			e.printStackTrace();
+		}
 		
 		transaction.commit();
 		
