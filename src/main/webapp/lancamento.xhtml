@@ -50,29 +50,15 @@
   	
   	<b:form id="formTableLancamento" style="margin-left: 35px; margin-top:15px;">
   	
-  		<b:dataTable value="#{lancamentoBean.lancamentos}" var="lancamento" border="2" cellpadding="3" style="margin-top: 10px;" col-lg="11">
-	   	  
-	   	  	<f:facet name="header"><h:outputText value="Lista de lançamentos"/></f:facet>
-	   	  	
-	   	  	<h:column>
-	   	  		<f:facet name="header">ID</f:facet>
-	   	  		<h:outputText value="#{lancamento.id}" />
-	   	  	</h:column>
+  		<b:dataTable value="#{lancamentoBean.lancamentos}" var="lancamento" style="margin-top: 10px;" col-lg="12">
 
-	   	  	<h:column>
-	   	  		<f:facet name="header">Nota</f:facet>
-	   	  		<h:outputText value="#{lancamento.numeroNotaFiscal}" />
-	   	  	</h:column>
+	   	  	<b:dataTableColumn value="#{lancamento.id}" />
 
-	   	  	<h:column>
-	   	  		<f:facet name="header" style="margin-left: 15px;">Origem</f:facet>
-	   	  		<h:outputText value="#{lancamento.empresaOrigem}" />
-	   	  	</h:column>
-	   	  	
-	   	  	<h:column>
-	   	  		<f:facet name="header" style="margin-left: 15px;">Destino</f:facet>
-	   	  		<h:outputText value="#{lancamento.empresaDestino}" />
-	   	  	</h:column>
+			<b:dataTableColumn value="#{lancamento.numeroNotaFiscal}" />
+			
+			<b:dataTableColumn value="#{lancamento.empresaOrigem}" />
+			
+			<b:dataTableColumn value="#{lancamento.empresaDestino}" />
 	   	  	
 	   	  	<h:column>
 	   	  		<f:facet name="header">Editar</f:facet>
@@ -83,7 +69,7 @@
 	   	  	</h:column>
 
 	   	  	<h:column rendered="#{pessoaBean.allowAccess('ADMINISTRADOR')}">	
-	   	  		<f:facet name="header">Ecluir</f:facet>
+	   	  		<f:facet name="header">Excluir</f:facet>
 	   	  		<h:commandButton action="#{lancamentoBean.delete}" image="resources/images/remove.png" title="Excluir">
 	   	  			<f:setPropertyActionListener target="#{lancamentoBean.lancamento}" value="#{lancamento}" />
 	   	  		</h:commandButton>

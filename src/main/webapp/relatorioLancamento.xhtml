@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
+
+  <h:head>
+    <title>Lançamentos</title>
+  </h:head>
+
+  <h:body>
+  
+  	<ui:include src="menu.xhtml" />
+	
+	<b:messages id="msg" infoStyle="color:green;font-size:18px;"/>
+	
+  	<b:form  id="formLancamento" style="padding:15px;"> 
+	  	<h4 style="margin-left: 15px;">Relatório de Lançamentos</h4>
+  		
+  		<b:panelGrid columns="3" col-lg="12"  style= "margin-bottom:20px;">
+  			<b:column  style="margin-left: -15px;">
+  				<h:outputLabel value="Data Inicio:" />
+			  	<b:dateTimePicker id="dataInicio" show-time='false' changeMonth="true" changeYear="true" value="#{relLancamentoBean.dataInicio}" />
+			</b:column>
+			
+			<b:column style="margin-left: -15px;" >
+  				<h:outputLabel value="Data Fim:" />
+			  	<b:dateTimePicker id="dataFim" show-time='false' changeMonth="true" changeYear="true" value="#{relLancamentoBean.dataFim}" />
+  			</b:column>
+  			
+  			<b:column style="margin-left: -15px;" >
+  				<h:outputLabel value="Nº Nota:" />
+			  	<b:inputText value="#{relLancamentoBean.numeroNotaFiscal}" />
+  			</b:column>
+  			
+  			<b:column style="margin-left: -15px;">
+  				<b:commandButton action="#{relLancamentoBean.buscarLancamento}" value="Buscar" look="primary" />
+  			</b:column>
+  		</b:panelGrid>
+		   	  
+  	</b:form>
+  	
+  	<b:form id="formTableLancamento" style="padding:15px;">
+  		<b:dataTable value="#{relLancamentoBean.lancamentos}" var="lancamento" style="margin-top: 10px;" col-lg="12" pdf="true">
+	   		
+	   		<b:dataTableColumn value="#{lancamento.numeroNotaFiscal}" label="Nº Nota" />
+	   		
+	   		<b:dataTableColumn value="#{lancamento.usuario.nome}" label="Usuário" />
+	   		
+	   		<b:dataTableColumn value="#{lancamento.dataCadastro}" />
+	   		
+	   	</b:dataTable>
+  	</b:form>
+  	
+  </h:body>
+  
+</html>

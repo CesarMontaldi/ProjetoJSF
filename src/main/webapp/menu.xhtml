@@ -2,11 +2,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
-
-  	<h:form style="margin-left: 35px;">
-		<h:commandLink action="principal" value="Administração" style="text-decoration: none;" rendered="#{pessoaBean.allowAccess('ADMINISTRADOR')}"/>
-		<h:commandLink action="lancamento" value="Lançamentos" style="margin-left: 15px; text-decoration: none;"/>
-		<h:commandLink action="#{pessoaBean.deslogar}" value="Deslogar" style="text-decoration: none; margin-left: 15px; "/>  		
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
+	
+	<h:form>
+		<b:navBar fluid="true">
+			<b:navbarLinks style="margin-left: 10px;">
+				<b:navLink href="principal.jsf" value="Usuários" rendered="#{pessoaBean.allowAccess('ADMINISTRADOR')}"/>
+				<b:navLink href="lancamento.jsf" value="Lançamentos" />
+				
+				<b:dropMenu value="Relatórios">
+					<b:navLink href="relatorioUsuario.jsf" value="Usuários"/>
+					<b:navLink href="relatorioLancamento.jsf" value="Notas"/>
+				</b:dropMenu>
+				
+				<b:navCommandLink action="#{pessoaBean.deslogar}" value="Deslogar" />
+			</b:navbarLinks>
+		</b:navBar>
   	</h:form>
 </html>

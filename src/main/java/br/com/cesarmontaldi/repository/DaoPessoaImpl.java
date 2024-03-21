@@ -8,6 +8,7 @@ import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 
 import br.com.cesarmontaldi.model.Estados;
+import br.com.cesarmontaldi.model.Lancamento;
 import br.com.cesarmontaldi.model.Pessoa;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -59,6 +60,21 @@ public class DaoPessoaImpl implements DaoPessoa, Serializable{
 		return selectItems;
 	}
 	
-	
+	@Override
+	public List<Pessoa> consultaPaginada() {
+		
+		List<Pessoa> pessoas = null;
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		
+		pessoas = entityManager
+				.createQuery(" from Pessoa order by id ASC ")
+				.setMaxResults(10)
+				.getResultList();
+		
+		transaction.commit();
+		
+		return pessoas;
+	}
 
 }

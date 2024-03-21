@@ -354,7 +354,6 @@ public class PessoaBean implements Serializable {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			
 		}
 		
 	}
