@@ -1,6 +1,7 @@
 package br.com.cesarmontaldi.repository;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -51,8 +52,25 @@ public class DaoLancamentoImpl implements DaoLancamento, Serializable {
 
 	@Override
 	public List<Lancamento> relatorioLancamento(String numeroNota, Date dataInicial, Date dataFim) {
-		System.out.println(numeroNota + "---" + dataInicial + "---" + dataFim);
-		return null;
+		
+		List<Lancamento> lancamentos = new ArrayList<Lancamento>();
+		
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" select l from Lancamento l ");
+		
+		if (dataInicial == null && dataFim == null && numeroNota != null && !numeroNota.isEmpty()) {
+			sql.append(" where l.numeroNotaFiscal = '").append(numeroNota.trim()).append("'");
+		}
+		
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		
+		lancamentos = entityManager.createQuery(sql.toString()).getResultList();
+		
+		transaction.commit();
+		
+		return lancamentos;
 	}
 
 }
