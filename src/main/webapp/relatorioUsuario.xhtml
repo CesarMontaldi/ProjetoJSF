@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
+
+  <h:head>
+    <title>Usuários</title>
+  </h:head>
+
+  <h:body>
+  
+  	<ui:include src="menu.xhtml" />
+	
+	<b:messages id="msg" infoStyle="color:green;font-size:18px;"/>
+	
+  	<b:form  id="formUsuario" style="padding:15px;"> 
+	  	<h4 style="margin-left: 15px;">Relatório de Usuários</h4>
+  		
+  		<b:panelGrid columns="3" col-lg="12"  style= "margin-bottom:20px;">
+  			<b:column  style="margin-left: -15px;">
+  				<h:outputLabel value="Data Inicio:" />
+			  	<b:dateTimePicker id="dataInicio" show-time='false' changeMonth="true" changeYear="true" value="#{relPessoaBean.dataInicio}" />
+			</b:column>
+			
+			<b:column style="margin-left: -15px;" >
+  				<h:outputLabel value="Data Fim:" />
+			  	<b:dateTimePicker id="dataFim" show-time='false' changeMonth="true" changeYear="true" value="#{relPessoaBean.dataFim}" />
+  			</b:column>
+  			
+  			<b:column style="margin-left: -15px;" >
+  				<h:outputLabel value="Nome:" />
+			  	<b:inputText value="#{relPessoaBean.nome}" />
+  			</b:column>
+  			
+  			<b:column style="margin-left: -15px;">
+  				<b:commandButton action="#{relPessoaBean.relatorioPessoas}" value="Buscar" look="primary" />
+  				<b:commandButton style="margin-left: 15px;" action="#{relPessoaBean.novo}" value="Limpar" look="warning" />
+  			</b:column>
+  		</b:panelGrid>
+		   	  
+  	</b:form>
+  	
+  	<b:form id="formTableUsuario" style="padding:15px;">
+  		<b:dataTable value="#{relPessoaBean.pessoas}" var="pessoa" style="margin-top: 10px;" col-lg="12" pdf="true">
+	   		
+	   		<b:dataTableColumn value="#{pessoa.id}" label="ID" />
+	   		
+	   		<b:dataTableColumn value="#{pessoa.nome}" label="Nome" />
+	   		
+	   		<b:dataTableColumn  label="Data Nascimento" >
+	   			<h:outputText value="#{pessoa.dataNascimento}">
+	   				<f:convertDateTime pattern="dd/MM/yyyy"/>
+	   			</h:outputText>
+	   		</b:dataTableColumn>
+	   		
+	   	</b:dataTable>
+  	</b:form>
+  	
+  </h:body>
+  
+</html>

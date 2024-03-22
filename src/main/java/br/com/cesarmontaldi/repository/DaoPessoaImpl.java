@@ -1,7 +1,9 @@
 package br.com.cesarmontaldi.repository;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -71,6 +73,58 @@ public class DaoPessoaImpl implements DaoPessoa, Serializable{
 				.createQuery(" from Pessoa order by id ASC ")
 				.setMaxResults(10)
 				.getResultList();
+		
+		transaction.commit();
+		
+		return pessoas;
+	}
+	
+	@Override
+	public List<Pessoa> relatorioPessoas(String nome, Date dataInicial, Date dataFim) {
+		
+		List<Pessoa> pessoas = new ArrayList<Pessoa>();
+		
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append("select * from Pessoa ");
+		
+		if (dataInicial == null && dataFim == null && nome != null && !nome.isEmpty()) {
+			sql.append("where upper(nome) like '%").append(nome.trim().toUpperCase()).append("%'");
+		}
+		
+		else if (nome == null || (nome != null && nome.isEmpty()) && dataInicial != null && dataFim == null) {
+			
+			String dataInicio = new SimpleDateFormat("yyyy-MM-dd").format(dataInicial);
+			sql.append("where dataNascimento >= '").append(dataInicio).append("'");
+		}
+		
+		else if (nome == null || (nome != null && nome.isEmpty()) && dataInicial == null && dataFim != null) {
+			
+			String dataFinal = new SimpleDateFormat("yyyy-MM-dd").format(dataFim);
+			sql.append("where dataNascimento <= '").append(dataFinal).append("'");
+		}
+		
+		else if (nome == null || (nome != null && nome.isEmpty()) && dataInicial != null && dataFim != null){
+			
+			String dataInicio = new SimpleDateFormat("yyyy-MM-dd").format(dataInicial);
+			String dataFinal = new SimpleDateFormat("yyyy-MM-dd").format(dataFim);
+			sql.append("where dataNascimento >= '").append(dataInicio).append("' ");
+			sql.append("and dataNascimento <= '").append(dataFinal).append("' ");
+		}
+		
+		else if (nome != null && !nome.isEmpty() && dataInicial != null && dataFim != null){
+			
+			String dataInicio = new SimpleDateFormat("yyyy-MM-dd").format(dataInicial);
+			String dataFinal = new SimpleDateFormat("yyyy-MM-dd").format(dataFim);
+			sql.append("where dataNascimento >= '").append(dataInicio).append("' ");
+			sql.append("and dataNascimento <= '").append(dataFinal).append("' ");
+			sql.append("and upper(nome) like '%").append(nome.trim().toUpperCase()).append("%'");
+		}
+		
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		
+		pessoas = (List<Pessoa>) entityManager.createNativeQuery(sql.toString(), Pessoa.class).getResultList();
 		
 		transaction.commit();
 		

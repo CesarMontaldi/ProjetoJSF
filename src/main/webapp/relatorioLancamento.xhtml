@@ -48,8 +48,12 @@
 	   		<b:dataTableColumn value="#{lancamento.numeroNotaFiscal}" label="Nº Nota" />
 	   		
 	   		<b:dataTableColumn value="#{lancamento.usuario.nome}" label="Usuário" />
-	   		
-	   		<b:dataTableColumn value="#{lancamento.dataCadastro}" />
+
+	   		<b:dataTableColumn  label="Data Cadastro" >
+	   			<h:outputText value="#{lancamento.dataCadastro}">
+	   				<f:convertDateTime pattern="dd/MM/yyyy"/>
+	   			</h:outputText>
+	   		</b:dataTableColumn>
 	   		
 	   	</b:dataTable>
   	</b:form>

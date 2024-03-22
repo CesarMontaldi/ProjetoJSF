@@ -87,7 +87,7 @@
 		   		<h4>Endereço</h4>
 				<b:panel>
 		   	  	  <h:outputLabel value="CEP:" />
-		   	  	  <b:inputText id="cep" value="#{pessoaBean.endereco.cep}" pt:placeholder="Informe um CEP válido!">
+		   	  	  <b:inputText id="cep" value="#{pessoaBean.endereco.cep}" pt:placeholder="Informe um CEP válido!" mask="99999-999">
 		   	  		<f:ajax event="blur" execute="@this" listener="#{pessoaBean.pesquisaCep}" render="logradouro bairro localidade uf msg"/>
 		   	      </b:inputText>
 			   	  
