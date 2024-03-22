@@ -1,6 +1,7 @@
 package br.com.cesarmontaldi.repository;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,16 +58,45 @@ public class DaoLancamentoImpl implements DaoLancamento, Serializable {
 		
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" select l from Lancamento l ");
+		sql.append("select * from Lancamento ");
 		
 		if (dataInicial == null && dataFim == null && numeroNota != null && !numeroNota.isEmpty()) {
-			sql.append(" where l.numeroNotaFiscal = '").append(numeroNota.trim()).append("'");
+			sql.append("where numeroNotaFiscal = '").append(numeroNota.trim()).append("'");
+		}
+		
+		else if (numeroNota == null || (numeroNota != null && numeroNota.isEmpty()) && dataInicial != null && dataFim == null) {
+			
+			String dataInicio = new SimpleDateFormat("yyyy-MM-dd").format(dataInicial);
+			sql.append("where dataCadastro >= '").append(dataInicio).append("'");
+		}
+		
+		else if (numeroNota == null || (numeroNota != null && numeroNota.isEmpty()) && dataInicial == null && dataFim != null) {
+			
+			String dataFinal = new SimpleDateFormat("yyyy-MM-dd").format(dataFim);
+			sql.append("where dataCadastro <= '").append(dataFinal).append("'");
+		}
+		
+		else if (numeroNota == null || (numeroNota != null && numeroNota.isEmpty()) && dataInicial != null && dataFim != null){
+			
+			String dataInicio = new SimpleDateFormat("yyyy-MM-dd").format(dataInicial);
+			String dataFinal = new SimpleDateFormat("yyyy-MM-dd").format(dataFim);
+			sql.append("where dataCadastro >= '").append(dataInicio).append("' ");
+			sql.append("and dataCadastro <= '").append(dataFinal).append("' ");
+		}
+		
+		else if (numeroNota != null && !numeroNota.isEmpty() && dataInicial != null && dataFim != null){
+			
+			String dataInicio = new SimpleDateFormat("yyyy-MM-dd").format(dataInicial);
+			String dataFinal = new SimpleDateFormat("yyyy-MM-dd").format(dataFim);
+			sql.append("where dataCadastro >= '").append(dataInicio).append("' ");
+			sql.append("and dataCadastro <= '").append(dataFinal).append("' ");
+			sql.append("and numeroNotaFiscal = '").append(numeroNota.trim()).append("'");
 		}
 		
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
-		lancamentos = entityManager.createQuery(sql.toString()).getResultList();
+		lancamentos = (List<Lancamento>) entityManager.createNativeQuery(sql.toString(), Lancamento.class).getResultList();
 		
 		transaction.commit();
 		

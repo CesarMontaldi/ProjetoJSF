@@ -15,10 +15,10 @@ import br.com.cesarmontaldi.repository.DaoLancamento;
 
 @ViewScoped
 @Named(value = "relLancamentoBean")
-public class RelatorioLancamentoBean implements Serializable {
+public class RelatorioLancamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private List<Lancamento> lancamentos = new ArrayList<Lancamento>();
 	
 	private Date dataInicio;
@@ -32,7 +32,7 @@ public class RelatorioLancamentoBean implements Serializable {
 	
 	@Inject
 	private DaoGeneric<Lancamento> daoGeneric;
-	
+
 	public List<Lancamento> getLancamentos() {
 		return lancamentos;
 	}
@@ -65,9 +65,17 @@ public class RelatorioLancamentoBean implements Serializable {
 		this.dataFim = dataFim;
 	}
 	
+	
+	public void novo() {
+		dataInicio = null;
+		dataFim = null;
+		numeroNotaFiscal = null;
+		lancamentos = new ArrayList<Lancamento>();
+	}
+	
 	public void buscarLancamento() {
 		
-		if (dataInicio == null && dataFim == null && numeroNotaFiscal == null) {
+		if (dataInicio == null && dataFim == null && (numeroNotaFiscal == null || numeroNotaFiscal.isEmpty())) {
 			lancamentos = daoGeneric.getListEntity(Lancamento.class);
 		} 
 		else {
